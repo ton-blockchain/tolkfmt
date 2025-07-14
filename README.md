@@ -1,9 +1,6 @@
 # tolkfmt
 
-> [!NOTE]
-> Development version!
-
-A code formatter for the Tolk programming language.
+Code formatter for the Tolk programming language.
 
 ## Installation
 
@@ -83,12 +80,7 @@ tolkfmt --range 10:0-25:0 file.tolk
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
-
-- Development setup
-- Building and testing
-- Submitting changes
-- Publishing releases
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## License
 
