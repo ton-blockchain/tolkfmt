@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Import sorting should handle mixed import types 1`] = `
+"import "@stdlib/array"
+import "@stdlib/string"
+import "./local"
+import "./other"
+import "absolute"
+import "nested/deep/file"
+import "../parent"
+import "../../grandparent"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should keep inline comments 1`] = `
+"import "@stdlib/array" // comment 4
+import "./explicit_current" // comment 3
+import "simple_file" // comment 1
+import "nested/file" // comment 2
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should keep trailing comments 1`] = `
+"// comment 4
+import "@stdlib/array"
+// comment 3
+import "./explicit_current"
+// comment 1
+import "simple_file"
+// comment 2
+import "nested/file"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should not sort imports by default 1`] = `
+"import "./local"
+import "@stdlib/hash"
+import "other"
+import "@stdlib/array"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should not sort imports when flag is disabled 1`] = `
+"import "./local"
+import "@stdlib/hash"
+import "other"
+import "@stdlib/array"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should preserve comments with imports 1`] = `
+"import "@stdlib/hash"
+import "./local" // comment
+// comment before
+import "other"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should sort alphabetically within same category 1`] = `
+"import "@stdlib/a"
+import "@stdlib/m"
+import "@stdlib/z"
+import "./a"
+import "./m"
+import "./z"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should sort nested imports by depth 1`] = `
+"import "simple"
+import "nested/file"
+import "nested/deep/file"
+import "nested/deep/very/deep"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should sort parent imports by depth 1`] = `
+"import "../parent"
+import "../../file"
+import "../../../deep"
+import "../../../../very_deep"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should sort relative imports by category 1`] = `
+"import "./local"
+import "./other_local"
+import "nested/file"
+import "../parent"
+import "../../grandparent"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should sort stdlib imports first 1`] = `
+"import "@stdlib/array"
+import "@stdlib/hash"
+import "./local"
+import "other"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should support Windows paths 1`] = `
+"import "@stdlib/array"
+import ".\\local"
+import "nested\\deep\\file"
+import "..\\parent"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should treat paths with leading slash as absolute 1`] = `
+"import "@stdlib/array"
+import "./current"
+import "relative/path"
+import "/absolute/path"
+
+fun test() {}
+"
+`;
+
+exports[`Import sorting should treat paths without leading slash as relative 1`] = `
+"import "@stdlib/array"
+import "./explicit_current"
+import "simple_file"
+import "nested/file"
+
+fun test() {}
+"
+`;

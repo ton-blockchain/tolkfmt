@@ -1,0 +1,37 @@
+# Source files
+src/
+test/
+*.ts
+tsconfig.json
+jest.config.js
+
+# Development files
+.git/
+.idea/
+.vscode/
+*.log
+*.tgz
+
+# Build artifacts
+*.map
+*.tsbuildinfo
+
+# Test files
+coverage/
+test-results/
+
+# Documentation
+*.md
+!README.md
+!CHANGELOG.md
+
+# Development dependencies
+yarn.lock
+package-lock.json
+
+# Examples and test files
+example.tolk
+*.test.tolk
+
+# Development documentation
+CONTRIBUTING.md

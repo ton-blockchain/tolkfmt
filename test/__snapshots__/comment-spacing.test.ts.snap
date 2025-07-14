@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Comment spacing should handle comment between declarations 1`] = `
+"fun foo() {
+    return 1;
+}
+// comment between functions
+fun bar() {
+    return 2;
+}
+"
+`;
+
+exports[`Comment spacing should handle comment with blank line between declarations 1`] = `
+"fun foo() {
+    return 1;
+}
+
+// comment between functions
+fun bar() {
+    return 2;
+}
+"
+`;
+
+exports[`Comment spacing should handle multiple comments between statements 1`] = `
+"fun test() {
+    foo();
+    // first comment
+    // second comment
+    bar();
+}
+"
+`;
+
+exports[`Comment spacing should handle trailing comment after statement 1`] = `
+"fun test() {
+    foo(); // trailing comment
+    bar();
+}
+"
+`;
+
+exports[`Comment spacing should not add extra blank line before comment between statements 1`] = `
+"fun test() {
+    foo();
+    // comment
+    bar();
+}
+"
+`;
+
+exports[`Comment spacing should preserve single blank line before comment 1`] = `
+"fun test() {
+    foo();
+
+    // comment
+    bar();
+}
+"
+`;

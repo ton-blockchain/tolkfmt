@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`tolkfmt foo.tolk Check and write flags simultaneously 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "Error: Cannot use both --write and --check options together
+",
+  "stdout": "",
+}
+`;
+
+exports[`tolkfmt foo.tolk Check on directory with formatted files 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "Checking formatting...
+All Tolk files are properly formatted!
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Check on directory with not formatted files 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "Checking formatting...
+[warn] file1.tolk
+[warn] file3.tolk
+[warn] file2.tolk
+Code style issues found in the above files. Run tolkfmt with --write to fix.
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Check on several directories 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "Checking formatting...
+[warn] file2.tolk
+Code style issues found in the above files. Run tolkfmt with --write to fix.
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Check on several formatted files 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "Checking formatting...
+All Tolk files are properly formatted!
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Default run 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun test(x: int, y: string): string {
+    return x + y;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Default run with write to file 1`] = `
+"fun test(x: int, y: string): string {
+    return x + y;
+}
+"
+`;
+
+exports[`tolkfmt foo.tolk Format struct 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "struct MyStruct {
+    x: int = 42
+    y: string = "hello"
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Help flag 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "tolkfmt/0.0.13
+
+Usage:
+  $ tolkfmt [options] <files or directories>
+
+Options:
+  -v, --version        Display version number 
+  -w, --write          Write result to same file 
+  -c, --check          Check if the given files are formatted 
+  -r, --range <range>  Format only the specified range (format: startLine:startChar-endLine:endChar) 
+  -s, --sort-imports   Sort imports in the formatted file 
+  -h, --help           Display this message 
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk No arguments 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: basic 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun foo() {
+    val x = 1;
+    val   y   =   2;
+    val   z   =   3;
+    return x + y + z;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: invalid format 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "Error: Invalid range format. Expected: startLine:startChar-endLine:endChar (e.g., 1:5-3:10)
+",
+  "stdout": "",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: invalid range values 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "Error: Invalid range format. Expected: startLine:startChar-endLine:endChar (e.g., 1:5-3:10)
+",
+  "stdout": "",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: multiple lines 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun foo() {
+    val x = 1;
+    val y = 2;
+    val   z   =   3;
+    return x + y + z;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: out of bounds 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun foo() {}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: short form flag 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun foo() {
+    val x = 1;
+    val   y   =   2;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: struct 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "type MyType = int;
+
+struct MyStruct {
+    field1: int
+    field2: string
+}
+
+fun foo() {
+    val   x   =   1;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: with check 1`] = `
+{
+  "code": 1,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "Checking formatting...
+[warn] range-check.tolk
+Code style issues found in the above files. Run tolkfmt with --write to fix.
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Range formatting: zero-based indexing 1`] = `
+{
+  "code": 0,
+  "kind": "exited",
+  "stderr": "",
+  "stdout": "fun foo() {
+    val   x   =   1;
+}
+",
+}
+`;
+
+exports[`tolkfmt foo.tolk Run on directory 1`] = `
+"fun foo1() {}
+"
+`;
+
+exports[`tolkfmt foo.tolk Run on directory 2`] = `
+"fun foo2() {}
+"
+`;
+
+exports[`tolkfmt foo.tolk Run on directory 3`] = `
+"fun foo3() {}
+"
+`;
+
+exports[`tolkfmt foo.tolk Version flag 1`] = `"tolkfmt/0.0.13"`;

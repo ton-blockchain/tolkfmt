@@ -1,0 +1,92 @@
+{
+    "name": "tolkfmt-test-dev",
+    "version": "0.0.13",
+    "description": "Code formatter for the Tolk programming language",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "bin": {
+        "tolkfmt": "./bin/tolkfmt"
+    },
+    "files": [
+        "dist/**/*",
+        "bin/**/*",
+        "!dist/test/**/*",
+        "!*/**/*.js.map",
+        "!*/**/*.ts.map",
+        "README.md",
+        "CHANGELOG.md"
+    ],
+    "keywords": [
+        "tolk",
+        "formatter",
+        "code-formatter",
+        "ton",
+        "blockchain",
+        "pretty-printer"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ton-blockchain/tolkfmt.git"
+    },
+    "homepage": "https://github.com/ton-blockchain/tolkfmt",
+    "bugs": {
+        "url": "https://github.com/ton-blockchain/tolkfmt/issues"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc && yarn copy-wasm",
+        "copy-wasm": "mkdir -p dist/wasm && cp -r wasm/* dist/wasm/",
+        "clean": "rm -rf dist",
+        "rebuild": "yarn clean && yarn build",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+        "fmt": "prettier --write -l --cache .",
+        "fmt:check": "prettier --check --cache .",
+        "lint": "eslint --cache .",
+        "precommit": "yarn run rebuild && yarn lint && yarn fmt:check && yarn test",
+        "prepublishOnly": "yarn precommit"
+    },
+    "devDependencies": {
+        "@types/jest": "^30.0.0",
+        "@types/node": "^24.0.13",
+        "eslint": "^9.19.0",
+        "eslint-plugin-functional": "^9.0.1",
+        "eslint-plugin-unicorn": "^56.0.1",
+        "eslint-plugin-unused-imports": "^4.1.4",
+        "jest": "^30.0.4",
+        "prettier": "^3.6.2",
+        "ts-jest": "^29.4.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.22.0"
+    },
+    "dependencies": {
+        "cac": "^6.7.14",
+        "glob": "^10.3.10",
+        "web-tree-sitter": "^0.25.6"
+    },
+    "packageManager": "yarn@4.6.0",
+    "prettier": {
+        "arrowParens": "avoid",
+        "bracketSpacing": false,
+        "printWidth": 100,
+        "semi": false,
+        "singleQuote": false,
+        "tabWidth": 4,
+        "trailingComma": "all",
+        "useTabs": false,
+        "overrides": [
+            {
+                "files": [
+                    "*.yaml",
+                    "*.yml"
+                ],
+                "options": {
+                    "tabWidth": 2
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`fmt-ignore directive should handle fmt-ignore with extra whitespace 1`] = `
+"//   fmt-ignore
+fun foo() {
+    val x = 1;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for global variable declaration 1`] = `
+"// fmt-ignore
+global   global_var   :   int;
+
+global other_var: int
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for multiple consecutive statements 1`] = `
+"fun foo() {
+    val x = 1;
+
+    // fmt-ignore
+    val   y   =   2;
+    // fmt-ignore
+    val   z   =   3;
+
+    return x + y + z;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for statements in block 1`] = `
+"fun foo() {
+    val x = 1;
+
+    // fmt-ignore
+    val   y   =   2;
+
+    val z = 3;
+    return x + y + z;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for struct declaration 1`] = `
+"// fmt-ignore
+struct MyStruct {
+    field1:   int;
+    field2:   string;
+}
+
+struct OtherStruct {
+    field1: int
+    field2: string
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for top-level function declaration 1`] = `
+"// fmt-ignore
+fun foo(){
+    val   x   =   1;
+    return    x;
+}
+
+fun bar() {
+    val y = 2;
+    return y;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting for type alias 1`] = `
+"// fmt-ignore
+type   MyType   =   int   |   string;
+
+type OtherType = int | string
+"
+`;
+
+exports[`fmt-ignore directive should ignore formatting with comments on same line 1`] = `
+"fun foo() {
+    val x = 1;
+
+    // fmt-ignore
+    val   y   =   2; // this is a comment
+
+    val z = 3;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore if statement 1`] = `
+"fun foo() {
+    val x = 1;
+
+    // fmt-ignore
+    if(x   >   0){
+        return   true;
+    }
+
+    return false;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore return statement 1`] = `
+"fun foo() {
+    val x = 1;
+
+    // fmt-ignore
+    return    x   +   2;
+}
+"
+`;
+
+exports[`fmt-ignore directive should ignore while statement 1`] = `
+"fun foo() {
+    // fmt-ignore
+    while(x   <   10){
+        x   =   x   +   1;
+    }
+}
+"
+`;
+
+exports[`fmt-ignore directive should not ignore with incorrect directive 1`] = `
+"// fmt-ignore-wrong
+fun foo() {
+    val x = 1;
+    return x;
+}
+
+// format-ignore
+fun bar() {
+    val y = 2;
+    return y;
+}
+"
+`;
+
+exports[`fmt-ignore directive should work with block formatting 1`] = `
+"fun foo() {
+    // fmt-ignore
+    {
+        val   x   =   1;
+        val   y   =   2;
+    }
+
+    {
+        val a = 3;
+        val b = 4;
+    }
+}
+"
+`;

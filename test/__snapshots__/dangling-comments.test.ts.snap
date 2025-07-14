@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Dangling comments in blocks comment after statement should be trailing 1`] = `
+"fun foo() {
+    print("hello"); // comment
+}
+"
+`;
+
+exports[`Dangling comments in blocks comment between statements 1`] = `
+"fun foo() {
+    print("first");
+    // comment
+    print("second");
+}
+"
+`;
+
+exports[`Dangling comments in blocks comment in block with statements should be leading to statement 1`] = `
+"fun foo() {
+    // comment
+    print("hello");
+}
+"
+`;
+
+exports[`Dangling comments in blocks comment in empty block should remain dangling 1`] = `
+"fun foo() {
+    // comment
+}
+
+fun bar() {
+    print("hello");
+}
+"
+`;
+
+exports[`Dangling comments in blocks comment in empty block with braces on same line 1`] = `
+"fun foo() {
+    // comment
+}
+"
+`;
+
+exports[`Dangling comments in blocks multiple comments in empty block 1`] = `
+"fun foo() {
+    // first comment
+    // second comment
+}
+"
+`;
