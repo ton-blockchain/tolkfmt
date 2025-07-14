@@ -414,14 +414,18 @@ export function printInstanceArgument(
 
     if (hasColon) {
         if (valueN) {
+            if (valueN.type === "identifier" && nameN.text === valueN.text) {
+                // format `{ foo: foo }` as `{ foo }`
+                return concat([...leadingDoc, name, comma, ...trailing])
+            }
             const value = printNode(valueN, ctx) ?? empty()
             return concat([...leadingDoc, name, text(": "), value, comma, ...trailing])
         } else {
-            // Case like {foo:}
+            // case like {foo:}
             return concat([...leadingDoc, name, text(":"), comma, ...trailing])
         }
     } else {
-        // Case like {foo} without colon
+        // case like {foo} without colon
         return concat([...leadingDoc, name, comma, ...trailing])
     }
 }

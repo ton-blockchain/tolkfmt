@@ -276,6 +276,7 @@ fun foo() {
         expect(await format(`fun test() { {foo}; }`)).toMatchSnapshot()
         expect(await format(`fun test() { {foo:}; }`)).toMatchSnapshot()
         expect(await format(`fun test() { {foo: 1, bar:, baz}; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { {foo: foo, bar: bar}; }`)).toMatchSnapshot()
 
         // Nested objects
         expect(await format(`fun test() { {foo: {bar: 1}}; }`)).toMatchSnapshot()

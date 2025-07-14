@@ -1347,12 +1347,19 @@ exports[`Formatter should format object literals 10`] = `
 
 exports[`Formatter should format object literals 11`] = `
 "fun test() {
-    { foo: { bar: 1 } };
+    { foo, bar };
 }
 "
 `;
 
 exports[`Formatter should format object literals 12`] = `
+"fun test() {
+    { foo: { bar: 1 } };
+}
+"
+`;
+
+exports[`Formatter should format object literals 13`] = `
 "fun test() {
     Foo {
         // some comment
@@ -1363,7 +1370,7 @@ exports[`Formatter should format object literals 12`] = `
 "
 `;
 
-exports[`Formatter should format object literals 13`] = `
+exports[`Formatter should format object literals 14`] = `
 "fun test() {
     Foo {
         // some comment
@@ -1374,7 +1381,7 @@ exports[`Formatter should format object literals 13`] = `
 "
 `;
 
-exports[`Formatter should format object literals 14`] = `
+exports[`Formatter should format object literals 15`] = `
 "fun test() {
     val emptyNftItemStorage: ItemStorageNotInitialized = {
         config: ItemConfig { index, collectionAddress }.toCell(),
@@ -1383,7 +1390,7 @@ exports[`Formatter should format object literals 14`] = `
 "
 `;
 
-exports[`Formatter should format object literals 15`] = `
+exports[`Formatter should format object literals 16`] = `
 "fun test() {
     val emptyNftItemStorage: ItemStorageNotInitialized = {
         config: ItemConfig { toooooooooooooooooooooooooooooooooooooooooooLong, collectionAddress }
@@ -1393,7 +1400,7 @@ exports[`Formatter should format object literals 15`] = `
 "
 `;
 
-exports[`Formatter should format object literals 16`] = `
+exports[`Formatter should format object literals 17`] = `
 "fun test() {
     val emptyNftItemStorage: ItemStorageNotInitialized = {
         config: ItemConfig {
