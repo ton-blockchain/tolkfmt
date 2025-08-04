@@ -793,6 +793,22 @@ fun foo() {
                 match(val [a, b] = [1, 2]) {}
             }`),
         ).toMatchSnapshot()
+
+        // Match with throw/return
+        expect(
+            await format(`fun test() {
+                match(a) {
+                    10 => return 10,
+                }
+            }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`fun test() {
+                match(a) {
+                    10 => throw 10,
+                }
+            }`),
+        ).toMatchSnapshot()
     })
 
     it("should format functions with many parameters", async () => {

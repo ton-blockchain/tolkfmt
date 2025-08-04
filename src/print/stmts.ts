@@ -109,14 +109,16 @@ export function printReturnStatement(node: Node, ctx: Ctx): Doc | undefined {
     const exprN = node.childForFieldName("body")
 
     const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
-
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const inMatchArm = node.parent?.type === "match_arm"
+    const endSemicolon = inMatchArm ? "" : ";"
 
     if (exprN) {
         const expr = printNode(exprN, ctx) ?? empty()
-        return concat([...leading, text("return "), expr, text(";"), ...trailing])
+        return concat([...leading, text("return "), expr, text(endSemicolon), ...trailing])
     } else {
-        return concat([...leading, text("return;"), ...trailing])
+        return concat([...leading, text(`return${endSemicolon}`), ...trailing])
     }
 }
 
@@ -140,14 +142,16 @@ export function printThrowStatement(node: Node, ctx: Ctx): Doc | undefined {
     const exprN = node.firstNamedChild // The expression to throw
 
     const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
-
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const inMatchArm = node.parent?.type === "match_arm"
+    const endSemicolon = inMatchArm ? "" : ";"
 
     if (exprN) {
         const expr = printNode(exprN, ctx) ?? empty()
-        return concat([...leading, text("throw "), expr, ...trailing])
+        return concat([...leading, text("throw "), expr, text(endSemicolon), ...trailing])
     } else {
-        return concat([...leading, text("throw"), ...trailing])
+        return concat([...leading, text(`throw${endSemicolon}`), ...trailing])
     }
 }
 

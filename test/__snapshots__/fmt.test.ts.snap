@@ -734,21 +734,21 @@ exports[`Formatter should format control flow statements 7`] = `
 
 exports[`Formatter should format control flow statements 8`] = `
 "fun test() {
-    throw 42
+    throw 42;
 }
 "
 `;
 
 exports[`Formatter should format control flow statements 9`] = `
 "fun test() {
-    throw (1, 2)
+    throw (1, 2);
 }
 "
 `;
 
 exports[`Formatter should format control flow statements 10`] = `
 "fun test() {
-    throw someVeryLongExpression
+    throw someVeryLongExpression;
 }
 "
 `;
@@ -1622,7 +1622,7 @@ exports[`Formatter should format pattern matching 5`] = `
 exports[`Formatter should format pattern matching 6`] = `
 "fun test() {
     match (value) {
-        int => return 1;,
+        int => return 1,
         string => throw 2,
     }
 }
@@ -1639,6 +1639,24 @@ exports[`Formatter should format pattern matching 7`] = `
 exports[`Formatter should format pattern matching 8`] = `
 "fun test() {
     match (val [a, b] = [1, 2]) {}
+}
+"
+`;
+
+exports[`Formatter should format pattern matching 9`] = `
+"fun test() {
+    match (a) {
+        10 => return 10,
+    }
+}
+"
+`;
+
+exports[`Formatter should format pattern matching 10`] = `
+"fun test() {
+    match (a) {
+        10 => throw 10,
+    }
 }
 "
 `;

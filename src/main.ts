@@ -10,14 +10,11 @@ const main = async (): Promise<void> => {
     const parser = createTolkParser()
 
     const cst = parser.parse(`
-fun test(): int
-    asm
-        // comment 0
-        "POP" // comment 1
-        // comment 11
-        "ADD" // comment 2
-        // comment 12
-        "AAA" // comment 3
+fun main() {
+    match (a) {
+        10 => return 10,
+    }
+}
 `)
     // bar(/* init: */ true, /* other: */ true /* other after */)
 
