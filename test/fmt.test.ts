@@ -617,6 +617,14 @@ fun foo() {
                 maxWidth: 30,
             }),
         ).toMatchSnapshot()
+         expect(
+            await format(`fun main() {
+                return (
+                    makeNullable(a), -100, makeNullable(b), -100, makeNullable<int, null>(9), -100, makeNullable<slice, null>(null), -100,
+                );
+            }`, {maxWidth: 50}),
+        ).toMatchSnapshot()
+
 
         // Struct with generics
         expect(await format(`struct MyStruct<T> { value: T }`)).toMatchSnapshot()

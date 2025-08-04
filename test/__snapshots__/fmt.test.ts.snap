@@ -1121,13 +1121,29 @@ exports[`Formatter should format generics 10`] = `
 `;
 
 exports[`Formatter should format generics 11`] = `
+"fun main() {
+    return (
+        makeNullable(a),
+        -100,
+        makeNullable(b),
+        -100,
+        makeNullable<int, null>(9),
+        -100,
+        makeNullable<slice, null>(null),
+        -100
+    );
+}
+"
+`;
+
+exports[`Formatter should format generics 12`] = `
 "struct MyStruct<T> {
     value: T
 }
 "
 `;
 
-exports[`Formatter should format generics 12`] = `
+exports[`Formatter should format generics 13`] = `
 "struct MyStruct<T, U> {
     first: T
     second: U
@@ -1135,17 +1151,17 @@ exports[`Formatter should format generics 12`] = `
 "
 `;
 
-exports[`Formatter should format generics 13`] = `
+exports[`Formatter should format generics 14`] = `
 "type Foo<T> = T | null
 "
 `;
 
-exports[`Formatter should format generics 14`] = `
+exports[`Formatter should format generics 15`] = `
 "type Foo<T, U> = T | U
 "
 `;
 
-exports[`Formatter should format generics 15`] = `
+exports[`Formatter should format generics 16`] = `
 "type Foo<T, U = int> = T | U
 "
 `;
@@ -1769,7 +1785,9 @@ exports[`Formatter should format simple expressions 13`] = `
 exports[`Formatter should format simple expressions 14`] = `
 "fun test() {
     (
-        veryLongExpression, anotherVeryLongExpression, thirdLongExpression
+        veryLongExpression,
+        anotherVeryLongExpression,
+        thirdLongExpression
     );
 }
 "
@@ -1799,7 +1817,9 @@ exports[`Formatter should format simple expressions 17`] = `
 exports[`Formatter should format simple expressions 18`] = `
 "fun test() {
     [
-        veryLongExpression, anotherVeryLongExpression, thirdLongExpression
+        veryLongExpression,
+        anotherVeryLongExpression,
+        thirdLongExpression
     ];
 }
 "

@@ -162,7 +162,7 @@ export function printTensorExpression(node: Node, ctx: Ctx): Doc | undefined {
     }
 
     const [first, ...rest] = parts
-    const tailDocs = rest.map(part => concat([text(", "), part]))
+    const tailDocs = rest.map(part => concat([text(","), line(), part]))
 
     return group([
         text("("),
@@ -190,7 +190,7 @@ export function printTypedTuple(node: Node, ctx: Ctx): Doc | undefined {
     }
 
     const [first, ...rest] = parts
-    const tailDocs = rest.map(part => concat([text(", "), part]))
+    const tailDocs = rest.map(part => concat([text(","), line(), part]))
 
     return group([
         text("["),
@@ -474,13 +474,7 @@ export function printInstantiationTList(node: Node, ctx: Ctx): Doc | undefined {
     const [first, ...rest] = parts
     const tailDocs = rest.map(part => concat([text(", "), part]))
 
-    return group([
-        text("<"),
-        indent(concat([softLine(), first, ...tailDocs])),
-        softLine(),
-        text(">"),
-        ...trailing,
-    ])
+    return group([text("<"), first, ...tailDocs, text(">"), ...trailing])
 }
 
 export function printMatchExpression(node: Node, ctx: Ctx): Doc | undefined {
