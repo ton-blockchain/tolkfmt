@@ -118,6 +118,7 @@ export function printTypeAlias(node: Node, ctx: Ctx): Doc | undefined {
     const annotationsN = node.childForFieldName("annotations")
     const nameN = node.childForFieldName("name")
     const typeN = node.childForFieldName("underlying_type")
+    const typeParametersN = node.childForFieldName("type_parameters")
 
     if (!nameN || !typeN) return undefined
 
@@ -127,6 +128,7 @@ export function printTypeAlias(node: Node, ctx: Ctx): Doc | undefined {
 
     const annotations = annotationsN ? (printNode(annotationsN, ctx) ?? empty()) : empty()
     const name = text(nameN.text)
+    const typeParameters = typeParametersN ? (printNode(typeParametersN, ctx) ?? empty()) : empty()
     const type = printNode(typeN, ctx) ?? empty()
 
     return group([
@@ -135,6 +137,7 @@ export function printTypeAlias(node: Node, ctx: Ctx): Doc | undefined {
         text("type"),
         text(" "),
         name,
+        typeParameters,
         text(" ="),
         typeN.type === "union_type" ? ifBreak(undefined, text(" ")) : text(" "),
         type,

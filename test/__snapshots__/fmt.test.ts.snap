@@ -1077,6 +1077,21 @@ exports[`Formatter should format generics 11`] = `
 "
 `;
 
+exports[`Formatter should format generics 12`] = `
+"type Foo<T> = T | null
+"
+`;
+
+exports[`Formatter should format generics 13`] = `
+"type Foo<T, U> = T | U
+"
+`;
+
+exports[`Formatter should format generics 14`] = `
+"type Foo<T, U = int> = T | U
+"
+`;
+
 exports[`Formatter should format imports with comments 1`] = `
 "import "a" // comment after
 "
