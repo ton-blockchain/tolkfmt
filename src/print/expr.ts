@@ -33,6 +33,15 @@ export function printDotAccess(node: Node, ctx: Ctx): Doc | undefined {
     const leadingField = takeLeading(fieldN, ctx.comments)
     const leadingFieldDoc = formatLeading(leadingField)
 
+    if (qualifierN.type === "object_literal" && leadingFieldDoc.length === 0) {
+        // don't add extra newline
+        // Foo {
+        //     ...
+        // }.toCell()
+        //  ^ here
+        return group([qualifier, text("."), field, ...trailing])
+    }
+
     return group([
         qualifier,
         indent(concat([softLine(), ...leadingFieldDoc, text("."), field, ...trailing])),

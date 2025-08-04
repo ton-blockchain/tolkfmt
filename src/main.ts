@@ -11,9 +11,9 @@ const main = async (): Promise<void> => {
 
     const cst = parser.parse(`
 fun main() {
-    (
-        makeNullable(a), -100, makeNullable(b), -100, makeNullable<int, null>(9), -100, makeNullable<slice, null>(null), -100,
-    );
+    Foo {
+        foo: aaaa // comment
+    }.toCell()
 }
 `)
     // bar(/* init: */ true, /* other: */ true /* other after */)

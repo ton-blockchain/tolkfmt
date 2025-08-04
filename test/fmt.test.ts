@@ -328,6 +328,29 @@ fun foo() {
         ).toMatchSnapshot()
     })
 
+    it("should format dot access", async () => {
+        await initParser(
+            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
+        )
+
+        expect(await format(`fun test() { foo.bar }`)).toMatchSnapshot()
+
+        // With Foo{} qualifier
+        expect(
+            await format(`fun test() {
+            Foo {}.toCell();
+        }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`fun test() {
+            Foo {
+                bar: 1 // comment
+            }.toCell();
+        }`),
+        ).toMatchSnapshot()
+    })
+
     it("should format control flow statements", async () => {
         await initParser(
             `${__dirname}/../wasm/tree-sitter.wasm`,
@@ -617,14 +640,16 @@ fun foo() {
                 maxWidth: 30,
             }),
         ).toMatchSnapshot()
-         expect(
-            await format(`fun main() {
+        expect(
+            await format(
+                `fun main() {
                 return (
                     makeNullable(a), -100, makeNullable(b), -100, makeNullable<int, null>(9), -100, makeNullable<slice, null>(null), -100,
                 );
-            }`, {maxWidth: 50}),
+            }`,
+                {maxWidth: 50},
+            ),
         ).toMatchSnapshot()
-
 
         // Struct with generics
         expect(await format(`struct MyStruct<T> { value: T }`)).toMatchSnapshot()

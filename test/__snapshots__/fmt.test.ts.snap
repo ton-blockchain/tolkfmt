@@ -753,6 +753,29 @@ exports[`Formatter should format control flow statements 10`] = `
 "
 `;
 
+exports[`Formatter should format dot access 1`] = `
+"fun test() {
+    foo.bar;
+}
+"
+`;
+
+exports[`Formatter should format dot access 2`] = `
+"fun test() {
+    Foo {}.toCell();
+}
+"
+`;
+
+exports[`Formatter should format dot access 3`] = `
+"fun test() {
+    Foo {
+        bar: 1, // comment
+    }.toCell();
+}
+"
+`;
+
 exports[`Formatter should format error handling 1`] = `
 "fun test() {
     assert (true) throw 1;
@@ -1482,8 +1505,7 @@ exports[`Formatter should format object literals 15`] = `
 exports[`Formatter should format object literals 16`] = `
 "fun test() {
     val emptyNftItemStorage: ItemStorageNotInitialized = {
-        config: ItemConfig { toooooooooooooooooooooooooooooooooooooooooooLong, collectionAddress }
-            .toCell(),
+        config: ItemConfig { toooooooooooooooooooooooooooooooooooooooooooLong, collectionAddress }.toCell(),
     };
 }
 "
@@ -1495,8 +1517,7 @@ exports[`Formatter should format object literals 17`] = `
         config: ItemConfig {
             toooooooooooooooooooooooooooooooooooooooooooLong,
             toooooooooooooooooooooooooooooooooooooooooooLong2,
-        }
-            .toCell(),
+        }.toCell(),
     };
 }
 "
