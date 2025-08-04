@@ -10,8 +10,9 @@ const main = async (): Promise<void> => {
     const parser = createTolkParser()
 
     const cst = parser.parse(`
+@custom("another", 12)
 fun main() {
-     Foo<int32, int32>.new();
+
 }
 `)
     // bar(/* init: */ true, /* other: */ true /* other after */)

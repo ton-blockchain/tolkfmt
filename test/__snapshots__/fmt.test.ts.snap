@@ -162,7 +162,7 @@ fun test() {
 `;
 
 exports[`Formatter should format annotations 5`] = `
-"@annotation(42, , "hello")
+"@annotation(42, "hello")
 fun test() {
     return;
 }
@@ -207,6 +207,13 @@ exports[`Formatter should format annotations 10`] = `
 struct MyStruct {
     x: int
 }
+"
+`;
+
+exports[`Formatter should format annotations 11`] = `
+"@custom({ \`type\`: 123, value: 19 })
+@custom("another", 12, "annotation")
+struct TTT {}
 "
 `;
 

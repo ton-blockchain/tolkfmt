@@ -162,7 +162,7 @@ const TOLK_GRAMMAR = {
             optional(field("arguments", $.annotation_arguments)),
         ),
 
-    annotation_arguments: $ => seq("(", repeat($._expression), optional(","), ")"),
+    annotation_arguments: $ => seq("(", commaSep($._expression), optional(","), ")"),
 
     type_parameters: $ => seq("<", commaSep($.type_parameter), optional(","), ">"),
     type_parameter: $ =>
@@ -611,7 +611,13 @@ const TOLK_GRAMMAR = {
     // common constructions
 
     number_literal: $ => token(choice(seq("0x", /[0-9a-fA-F]+/), seq("0b", /[01]+/), /[0-9]+/)),
-    string_literal: $ => /"[^"]*"\w?/,
+    string_literal: $ =>
+        token(
+            choice(
+                /"""\s*[\s\S]*?"""/, // triple quotes
+                /"(?:[^"\\\n]|\\.)*"/, // sing quote
+            ),
+        ),
     boolean_literal: $ => choice("true", "false"),
     null_literal: $ => "null",
     underscore: $ => "_",

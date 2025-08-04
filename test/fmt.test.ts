@@ -659,6 +659,18 @@ fun foo() {
         @annotation // inline comment 4
         struct MyStruct { x: int }`),
         ).toMatchSnapshot()
+
+        // Complex annotations
+        expect(
+            await format(`
+            @custom({
+                \`type\`: 123,
+                value: 19
+            })
+            @custom("another", 12, "annotation")
+            struct TTT {}
+            `),
+        ).toMatchSnapshot()
     })
 
     it("should format advanced types", async () => {
