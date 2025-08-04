@@ -213,6 +213,8 @@ export function printLocalVarsDeclaration(node: Node, ctx: Ctx): Doc | undefined
 
     if (!kindN || !lhsN) return undefined
 
+    const isMatchExpression = node.parent?.type === "match_expression"
+
     const kind = kindN.text // "var" or "val"
     const lhs = printNode(lhsN, ctx) ?? empty()
 
@@ -229,7 +231,7 @@ export function printLocalVarsDeclaration(node: Node, ctx: Ctx): Doc | undefined
             lhs,
             text(" = "),
             assignedVal,
-            text(";"),
+            isMatchExpression ? empty() : text(";"),
             ...trailing,
         ])
     } else {

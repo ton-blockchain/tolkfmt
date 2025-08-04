@@ -91,6 +91,7 @@ fun foo() {
 
         // Tuple types
         expect(await format(`type EmptyTuple = []`)).toMatchSnapshot()
+        expect(await format(`type IntOrSlice = int | slice`)).toMatchSnapshot()
         expect(await format(`type SingleTuple = [int]`)).toMatchSnapshot()
         expect(await format(`type DoubleTuple = [int, string]`)).toMatchSnapshot()
         expect(
@@ -762,6 +763,18 @@ fun foo() {
         ).toMatchSnapshot()
         expect(
             await format(`fun test() { match(value) { int => return 1, string => throw 2 } }`),
+        ).toMatchSnapshot()
+
+        // Match with variable
+        expect(
+            await format(`fun test() {
+                match(val a = 100) {}
+            }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`fun test() {
+                match(val [a, b] = [1, 2]) {}
+            }`),
         ).toMatchSnapshot()
     })
 

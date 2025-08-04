@@ -311,16 +311,21 @@ exports[`Formatter should format basic types 8`] = `
 `;
 
 exports[`Formatter should format basic types 9`] = `
-"type SingleTuple = [int]
+"type IntOrSlice = int | slice
 "
 `;
 
 exports[`Formatter should format basic types 10`] = `
-"type DoubleTuple = [int, string]
+"type SingleTuple = [int]
 "
 `;
 
 exports[`Formatter should format basic types 11`] = `
+"type DoubleTuple = [int, string]
+"
+`;
+
+exports[`Formatter should format basic types 12`] = `
 "type LongTuple = [
     VeryLongTypeName, AnotherVeryLongTypeName, ThirdLongTypeName
 ]
@@ -1574,6 +1579,20 @@ exports[`Formatter should format pattern matching 6`] = `
         int => return 1;,
         string => throw 2,
     }
+}
+"
+`;
+
+exports[`Formatter should format pattern matching 7`] = `
+"fun test() {
+    match (val a = 100) {}
+}
+"
+`;
+
+exports[`Formatter should format pattern matching 8`] = `
+"fun test() {
+    match (val [a, b] = [1, 2]) {}
 }
 "
 `;
