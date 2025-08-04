@@ -614,6 +614,11 @@ fun foo() {
         // Struct with generics
         expect(await format(`struct MyStruct<T> { value: T }`)).toMatchSnapshot()
         expect(await format(`struct MyStruct<T, U> { first: T, second: U }`)).toMatchSnapshot()
+
+        // Type aliases with generics
+        expect(await format(`type Foo<T> = T | null`)).toMatchSnapshot()
+        expect(await format(`type Foo<T, U> = T | U`)).toMatchSnapshot()
+        expect(await format(`type Foo<T, U = int> = T | U`)).toMatchSnapshot()
     })
 
     it("should format annotations", async () => {
