@@ -13,7 +13,7 @@ export function render(doc: Doc, printWidth: number): string {
 
     const out: string[] = []
     const lineSuffix: Doc[] = []
-    const stack: Frame[] = [{doc, mode: "break", indent: 0}]
+    const stack: Frame[] = [{doc, mode: "flat", indent: 0}]
 
     function fits(d: Doc, w: number): boolean {
         const fitStack: Doc[] = [d]

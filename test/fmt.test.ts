@@ -525,6 +525,11 @@ fun foo() {
         // Get method declarations
         expect(await format(`get test() { return 42; }`)).toMatchSnapshot()
         expect(await format(`get test(): int { return 42; }`)).toMatchSnapshot()
+
+        // Assembly functions
+        expect(await format(`fun test(): int asm "POP"`)).toMatchSnapshot()
+        expect(await format(`fun test(): int asm "POP" "ADD" "AAA"`)).toMatchSnapshot()
+        expect(await format(`fun test(): int asm "POP" // inline comment`)).toMatchSnapshot()
     })
 
     it("should format top-level declarations", async () => {
@@ -820,6 +825,27 @@ fun foo() {
         BAR
         BAZ
     """
+        `),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`fun test(): int
+            asm
+                "POP" // comment 1
+                "ADD" // comment 2
+                "AAA" // comment 3
+        `),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`fun test(): int
+            asm
+                // leading comment 1
+                "POP" // comment 1
+                // leading comment 2
+                "ADD" // comment 2
+                // leading comment 3
+                "AAA" // comment 3
         `),
         ).toMatchSnapshot()
 

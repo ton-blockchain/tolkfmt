@@ -246,6 +246,27 @@ exports[`Formatter should format assembly and builtin functions 4`] = `
 `;
 
 exports[`Formatter should format assembly and builtin functions 5`] = `
+"fun test(): int
+    asm
+    "POP" // comment 1
+    "ADD" // comment 2
+    "AAA" // comment 3
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 6`] = `
+"fun test(): int
+    asm
+    // leading comment 1
+    "POP" // comment 1
+    // leading comment 2
+    "ADD" // comment 2
+    // leading comment 3
+    "AAA" // comment 3
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 7`] = `
 "fun test()
     builtin
 "
@@ -997,6 +1018,24 @@ exports[`Formatter should format functions 16`] = `
 "get fun test(): int {
     return 42;
 }
+"
+`;
+
+exports[`Formatter should format functions 17`] = `
+"fun test(): int
+    asm "POP"
+"
+`;
+
+exports[`Formatter should format functions 18`] = `
+"fun test(): int
+    asm "POP" "ADD" "AAA"
+"
+`;
+
+exports[`Formatter should format functions 19`] = `
+"fun test(): int
+    asm "POP" // inline comment
 "
 `;
 

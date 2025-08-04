@@ -1,5 +1,6 @@
 import type {Node} from "web-tree-sitter"
 import type {Doc} from "../doc"
+import {breakParent} from "../doc"
 import {
     blank,
     blankLinesBetween,
@@ -158,6 +159,7 @@ export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
     if (!nameN || !parametersN || !bodyN) return undefined
 
     const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     const annotations = annotationsN ? (printNode(annotationsN, ctx) ?? empty()) : empty()
     const name = text(nameN.text)
@@ -182,6 +184,7 @@ export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
         parameters,
         returnTypePart,
         ...(isSpecialBody ? [indent(concat([hardLine(), body]))] : [text(" "), body]),
+        ...trailing,
     ])
 }
 
@@ -526,9 +529,14 @@ export function printAsmBody(node: Node, ctx: Ctx): Doc | undefined {
         .filter(child => child?.type === "string_literal")
         .filter(child => child !== null)
 
-    const stringParts = strings.flatMap(str => [text(" "), printNode(str, ctx) ?? empty()])
+    const stringParts = strings.flatMap(str => {
+        const strTrailing = takeTrailing(str, ctx.comments).map(c =>
+            concat([text(" "), text(c.text), breakParent()]),
+        )
+        return [line(), printNode(str, ctx) ?? empty(), ...strTrailing]
+    })
 
-    return concat([...leading, text("asm"), ...stringParts, ...trailing])
+    return concat([...leading, text("asm"), group([...stringParts, ...trailing])])
 }
 
 export function printMethodReceiver(node: Node, ctx: Ctx): Doc | undefined {
