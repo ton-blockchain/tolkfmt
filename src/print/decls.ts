@@ -132,16 +132,18 @@ export function printTypeAlias(node: Node, ctx: Ctx): Doc | undefined {
     const typeParameters = typeParametersN ? (printNode(typeParametersN, ctx) ?? empty()) : empty()
     const type = printNode(typeN, ctx) ?? empty()
 
-    return group([
+    return concat([
         ...leading,
         annotations,
         text("type"),
         text(" "),
         name,
         typeParameters,
-        text(" ="),
-        typeN.type === "union_type" ? ifBreak(undefined, text(" ")) : text(" "),
-        type,
+        group([
+            text(" ="),
+            typeN.type === "union_type" ? ifBreak(undefined, text(" ")) : text(" "),
+            type,
+        ]),
         ...trailing,
     ])
 }

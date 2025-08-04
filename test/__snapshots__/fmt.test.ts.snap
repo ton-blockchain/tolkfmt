@@ -2056,13 +2056,29 @@ type Foo = int
 `;
 
 exports[`Formatter should format top level declarations with comments 6`] = `
+"/// type alias comment 2
+/// second line
+type AllowedMessage = IncreaseCounter | ResetCounter
+"
+`;
+
+exports[`Formatter should format top level declarations with comments 7`] = `
+"/// type alias comment 2
+/// second line
+type AllowedMessage =
+    | IncreaseCounter
+    | ResetCounter
+"
+`;
+
+exports[`Formatter should format top level declarations with comments 8`] = `
 "/// constant comment
 /// second line
 const FOO = 100
 "
 `;
 
-exports[`Formatter should format top level declarations with comments 7`] = `
+exports[`Formatter should format top level declarations with comments 9`] = `
 "/// global variable comment
 /// second line
 global foo: int

@@ -10,11 +10,9 @@ const main = async (): Promise<void> => {
     const parser = createTolkParser()
 
     const cst = parser.parse(`
-fun main() {
-    Foo {
-        foo: aaaa // comment
-    }.toCell()
-}
+// this allows processing them with pattern matching
+type AllowedMessage = IncreaseCounter | ResetCounter
+
 `)
     // bar(/* init: */ true, /* other: */ true /* other after */)
 
@@ -24,7 +22,7 @@ fun main() {
     const doc = printNode(cst.rootNode, ctx)
 
     if (doc) {
-        console.log(render(doc, 50) + "---")
+        console.log(render(doc, 100) + "---")
     }
 }
 

@@ -1148,6 +1148,25 @@ fun foo() {
 
         expect(
             await format(`
+            /// type alias comment 2
+            /// second line
+            type AllowedMessage = IncreaseCounter | ResetCounter
+            `),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(
+                `
+            /// type alias comment 2
+            /// second line
+            type AllowedMessage = IncreaseCounter | ResetCounter
+            `,
+                {maxWidth: 50},
+            ),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`
         /// constant comment
         /// second line
         const FOO = 100
