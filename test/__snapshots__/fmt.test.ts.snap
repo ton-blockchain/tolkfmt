@@ -1000,35 +1000,35 @@ exports[`Formatter should format functions with many parameters 1`] = `
 `;
 
 exports[`Formatter should format generics 1`] = `
-"fun test() {
+"fun test<T>() {
     return;
 }
 "
 `;
 
 exports[`Formatter should format generics 2`] = `
-"fun test() {
+"fun test<T, U>() {
     return;
 }
 "
 `;
 
 exports[`Formatter should format generics 3`] = `
-"fun test() {
+"fun test<T = int>() {
     return;
 }
 "
 `;
 
 exports[`Formatter should format generics 4`] = `
-"fun test() {
+"fun test<T, U = string>() {
     return;
 }
 "
 `;
 
 exports[`Formatter should format generics 5`] = `
-"fun test() {
+"fun test<VeryLongTypeName, AnotherLongType>() {
     return;
 }
 "

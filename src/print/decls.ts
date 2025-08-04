@@ -148,6 +148,7 @@ export function printTypeAlias(node: Node, ctx: Ctx): Doc | undefined {
 export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
     const annotationsN = node.childForFieldName("annotations")
     const nameN = node.childForFieldName("name")
+    const typeParametersN = node.childForFieldName("type_parameters")
     const parametersN = node.childForFieldName("parameters")
     const returnTypeN = node.childForFieldName("return_type")
     const specialBodyN =
@@ -160,6 +161,7 @@ export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
 
     const annotations = annotationsN ? (printNode(annotationsN, ctx) ?? empty()) : empty()
     const name = text(nameN.text)
+    const typeParameters = typeParametersN ? (printNode(typeParametersN, ctx) ?? empty()) : empty()
     const parameters = printNode(parametersN, ctx) ?? empty()
     const body = printNode(bodyN, ctx) ?? empty()
 
@@ -176,6 +178,7 @@ export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
         annotations,
         text("fun "),
         name,
+        typeParameters,
         parameters,
         returnTypePart,
         ...(isSpecialBody ? [indent(concat([hardLine(), body]))] : [text(" "), body]),
@@ -491,13 +494,7 @@ export function printTypeParameters(node: Node, ctx: Ctx): Doc | undefined {
     const [first, ...rest] = parts
     const tailDocs = rest.map(part => concat([text(", "), part]))
 
-    return group([
-        text("<"),
-        indent(concat([softLine(), first, ...tailDocs])),
-        softLine(),
-        text(">"),
-        ...trailing,
-    ])
+    return concat([text("<"), first, ...tailDocs, text(">"), ...trailing])
 }
 
 export function printTypeParameter(node: Node, ctx: Ctx): Doc | undefined {
