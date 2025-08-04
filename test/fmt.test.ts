@@ -606,6 +606,7 @@ fun foo() {
                 maxWidth: 30,
             }),
         ).toMatchSnapshot()
+        expect(await format(`fun foo.test<T, U = string>() { return; }`)).toMatchSnapshot()
 
         // Generic instantiation
         expect(await format(`fun test() { val x: List<int>; }`)).toMatchSnapshot()

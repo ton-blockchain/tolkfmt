@@ -1086,41 +1086,48 @@ exports[`Formatter should format generics 5`] = `
 `;
 
 exports[`Formatter should format generics 6`] = `
-"fun test() {
-    val x: List<int>;
+"fun foo.test<T, U = string>() {
+    return;
 }
 "
 `;
 
 exports[`Formatter should format generics 7`] = `
 "fun test() {
-    val x: Map<string, int>;
+    val x: List<int>;
 }
 "
 `;
 
 exports[`Formatter should format generics 8`] = `
 "fun test() {
-    val x = Foo<int32, int32>.new();
+    val x: Map<string, int>;
 }
 "
 `;
 
 exports[`Formatter should format generics 9`] = `
 "fun test() {
-    val x: VeryLongType<VeryLongGenericParameter>;
+    val x = Foo<int32, int32>.new();
 }
 "
 `;
 
 exports[`Formatter should format generics 10`] = `
+"fun test() {
+    val x: VeryLongType<VeryLongGenericParameter>;
+}
+"
+`;
+
+exports[`Formatter should format generics 11`] = `
 "struct MyStruct<T> {
     value: T
 }
 "
 `;
 
-exports[`Formatter should format generics 11`] = `
+exports[`Formatter should format generics 12`] = `
 "struct MyStruct<T, U> {
     first: T
     second: U
@@ -1128,17 +1135,17 @@ exports[`Formatter should format generics 11`] = `
 "
 `;
 
-exports[`Formatter should format generics 12`] = `
+exports[`Formatter should format generics 13`] = `
 "type Foo<T> = T | null
 "
 `;
 
-exports[`Formatter should format generics 13`] = `
+exports[`Formatter should format generics 14`] = `
 "type Foo<T, U> = T | U
 "
 `;
 
-exports[`Formatter should format generics 14`] = `
+exports[`Formatter should format generics 15`] = `
 "type Foo<T, U = int> = T | U
 "
 `;

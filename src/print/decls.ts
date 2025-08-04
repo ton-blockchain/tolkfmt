@@ -286,6 +286,7 @@ export function printMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined {
     const annotationsN = node.childForFieldName("annotations")
     const receiverN = node.childForFieldName("receiver")
     const nameN = node.childForFieldName("name")
+    const typeParametersN = node.childForFieldName("type_parameters")
     const parametersN = node.childForFieldName("parameters")
     const returnTypeN = node.childForFieldName("return_type")
     const specialBodyN =
@@ -299,6 +300,7 @@ export function printMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined {
     const annotations = annotationsN ? (printNode(annotationsN, ctx) ?? empty()) : empty()
     const receiver = printNode(receiverN, ctx) ?? empty()
     const name = text(nameN.text)
+    const typeParameters = typeParametersN ? (printNode(typeParametersN, ctx) ?? empty()) : empty()
     const parameters = printNode(parametersN, ctx) ?? empty()
     const body = printNode(bodyN, ctx) ?? empty()
 
@@ -316,6 +318,7 @@ export function printMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined {
         text("fun "),
         receiver,
         name,
+        typeParameters,
         parameters,
         returnTypePart,
         ...(isSpecialBody ? [indent(concat([hardLine(), body]))] : [text(" "), body]),
