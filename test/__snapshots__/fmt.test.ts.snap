@@ -30,6 +30,21 @@ exports[`Formatter should format 4`] = `
 "
 `;
 
+exports[`Formatter should format 5`] = `
+"fun foo() {
+
+}
+"
+`;
+
+exports[`Formatter should format 6`] = `
+"fun foo() {
+    match (a) {}
+    ; // comment
+}
+"
+`;
+
 exports[`Formatter should format advanced expressions 1`] = `
 "fun test() {
     x += 1;
@@ -669,6 +684,20 @@ exports[`Formatter should format conditions 5`] = `
 "
 `;
 
+exports[`Formatter should format conditions 6`] = `
+"fun test() {
+    match (a) {}
+}
+"
+`;
+
+exports[`Formatter should format conditions 7`] = `
+"fun test() {
+    match (a) {}
+}
+"
+`;
+
 exports[`Formatter should format control flow statements 1`] = `
 "fun test() {
     return;
@@ -1232,6 +1261,15 @@ exports[`Formatter should format loops 2`] = `
 
 exports[`Formatter should format loops 3`] = `
 "fun test() {
+    while (condition) {
+        doSomething();
+    }
+}
+"
+`;
+
+exports[`Formatter should format loops 4`] = `
+"fun test() {
     while (
         veryVeryLongCondition
     ) {
@@ -1241,7 +1279,7 @@ exports[`Formatter should format loops 3`] = `
 "
 `;
 
-exports[`Formatter should format loops 4`] = `
+exports[`Formatter should format loops 5`] = `
 "fun test() {
     do {
         doSomething();
@@ -1250,7 +1288,7 @@ exports[`Formatter should format loops 4`] = `
 "
 `;
 
-exports[`Formatter should format loops 5`] = `
+exports[`Formatter should format loops 6`] = `
 "fun test() {
     do {
         doSomething();
@@ -1259,7 +1297,7 @@ exports[`Formatter should format loops 5`] = `
 "
 `;
 
-exports[`Formatter should format loops 6`] = `
+exports[`Formatter should format loops 7`] = `
 "fun test() {
     do {
         doSomething();
@@ -1270,7 +1308,7 @@ exports[`Formatter should format loops 6`] = `
 "
 `;
 
-exports[`Formatter should format loops 7`] = `
+exports[`Formatter should format loops 8`] = `
 "fun test() {
     repeat (10) {
         doSomething();
@@ -1279,7 +1317,7 @@ exports[`Formatter should format loops 7`] = `
 "
 `;
 
-exports[`Formatter should format loops 8`] = `
+exports[`Formatter should format loops 9`] = `
 "fun test() {
     repeat (count) {
         doSomething();
@@ -1288,7 +1326,7 @@ exports[`Formatter should format loops 8`] = `
 "
 `;
 
-exports[`Formatter should format loops 9`] = `
+exports[`Formatter should format loops 10`] = `
 "fun test() {
     repeat (veryLongCount) {
         doSomething();
@@ -1375,7 +1413,6 @@ exports[`Formatter should format object literal field with comments 6`] = `
 exports[`Formatter should format object literals 1`] = `
 "fun test() {
     {}
-    ;
 }
 "
 `;
@@ -1434,7 +1471,6 @@ exports[`Formatter should format object literals 8`] = `
     {
         foo;
     }
-    ;
 }
 "
 `;
@@ -2117,7 +2153,7 @@ exports[`Formatter should format top-level declarations 6`] = `
 
 exports[`Formatter should format top-level declarations 7`] = `
 "fun test() {
-    ;
+
 }
 "
 `;
@@ -2125,7 +2161,6 @@ exports[`Formatter should format top-level declarations 7`] = `
 exports[`Formatter should format top-level declarations 8`] = `
 "fun test() {
     doSomething();
-    ;
 }
 "
 `;

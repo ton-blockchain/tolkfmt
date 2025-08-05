@@ -15,7 +15,7 @@ import {
     softLine,
     text,
 } from "../doc"
-import {getLeading, takeDangling, takeLeading, takeTrailing} from "../comments"
+import {getLeading, getTrailing, takeDangling, takeLeading, takeTrailing} from "../comments"
 import {printMatchExpression} from "./expr"
 
 export const printIfStatement = (node: Node, ctx: Ctx): Doc | undefined => {
@@ -68,9 +68,18 @@ export function printBlockStatement(node: Node, ctx: Ctx): Doc | undefined {
         return text("{}")
     }
 
+    const nonEmptyStatements = statements.filter(stmt => {
+        if (stmt.type === "empty_statement" && getTrailing(stmt, ctx.comments).length === 0) {
+            // skip `;` in `match (a) { ... };`
+            return false
+        }
+        // non empty statement
+        return true
+    })
+
     const docs: Doc[] = []
-    for (let i = 0; i < statements.length; i++) {
-        const statement = statements[i]
+    for (let i = 0; i < nonEmptyStatements.length; i++) {
+        const statement = nonEmptyStatements[i]
 
         if (hasFmtIgnoreDirective(getLeading(statement, ctx.comments))) {
             docs.push(printOriginalNodeText(statement, ctx))
@@ -81,8 +90,8 @@ export function printBlockStatement(node: Node, ctx: Ctx): Doc | undefined {
             docs.push(doc)
         }
 
-        if (i < statements.length - 1) {
-            docs.push(blank(blankLinesBetween(statement, statements[i + 1], ctx.comments)))
+        if (i < nonEmptyStatements.length - 1) {
+            docs.push(blank(blankLinesBetween(statement, nonEmptyStatements[i + 1], ctx.comments)))
         }
     }
 
@@ -315,6 +324,10 @@ export function printTensorVarsDeclaration(node: Node, ctx: Ctx): Doc | undefine
 
 export function printEmptyStatement(node: Node, ctx: Ctx): Doc | undefined {
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    if (trailing.length === 0) {
+        return empty()
+    }
 
     return concat([text(";"), ...trailing])
 }

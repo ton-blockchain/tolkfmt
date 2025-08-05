@@ -159,6 +159,12 @@ export function getLeading(node: Node, comments: CommentMap): CommentInfo[] {
     return entry.leading
 }
 
+export function getTrailing(node: Node, comments: CommentMap): CommentInfo[] {
+    const entry = comments.get(node.id)
+    if (!entry) return []
+    return entry.trailing
+}
+
 export function takeLeading(node: Node, comments: CommentMap): CommentInfo[] {
     const entry = comments.get(node.id)
     if (!entry) return []

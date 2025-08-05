@@ -34,6 +34,18 @@ fun foo() {
                 {maxWidth: 30},
             ),
         ).toMatchSnapshot()
+
+        expect(
+            await format(`fun foo() {
+                ;;;;;;;
+            }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`fun foo() {
+                match (a) {}
+                ; // comment
+            }`),
+        ).toMatchSnapshot()
     })
 
     it("should format simple literals", async () => {
@@ -406,6 +418,9 @@ fun foo() {
             await format(`fun test() { while (condition) { doSomething(); } }`),
         ).toMatchSnapshot()
         expect(
+            await format(`fun test() { while (condition) { doSomething(); }; }`),
+        ).toMatchSnapshot()
+        expect(
             await format(`fun test() { while (veryVeryLongCondition) { doSomething(); } }`, {
                 maxWidth: 30,
             }),
@@ -455,6 +470,17 @@ fun foo() {
             await format(
                 `fun test() { if (true) { a = 100; } else if (false) { a = 200 } else { a = 300 } }`,
             ),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`fun test() {
+                match (a) {}
+            }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`fun test() {
+                match (a) {};
+            }`),
         ).toMatchSnapshot()
     })
 
