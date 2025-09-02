@@ -682,7 +682,7 @@ export function printEnumBody(node: Node, ctx: Ctx): Doc | undefined {
     return concat([
         text("{"),
         indent(concat([hardLine(), first, ...tailDocs])),
-        ifBreak(text(","), undefined), // trailing comma
+        text(","), // trailing comma
         hardLine(),
         text("}"),
         ...trailing,
