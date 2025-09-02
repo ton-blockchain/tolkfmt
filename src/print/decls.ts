@@ -332,6 +332,8 @@ export function printGetMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined
     const nameN = node.childForFieldName("name")
     const parametersN = node.childForFieldName("parameters")
     const returnTypeN = node.childForFieldName("return_type")
+    const specialBodyN =
+        node.childForFieldName("asm_body") ?? node.childForFieldName("builtin_specifier")
     const bodyN = node.childForFieldName("body")
 
     if (!nameN || !parametersN || !bodyN) return undefined
@@ -349,6 +351,8 @@ export function printGetMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined
         returnTypePart = concat([text(": "), returnType])
     }
 
+    const isSpecialBody = specialBodyN !== null
+
     return concat([
         ...leading,
         annotations,
@@ -356,8 +360,7 @@ export function printGetMethodDeclaration(node: Node, ctx: Ctx): Doc | undefined
         name,
         parameters,
         returnTypePart,
-        text(" "),
-        body,
+        ...(isSpecialBody ? [indent(concat([hardLine(), body]))] : [text(" "), body]),
     ])
 }
 

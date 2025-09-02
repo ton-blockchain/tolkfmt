@@ -1153,7 +1153,8 @@ exports[`Formatter should format functions 19`] = `
 `;
 
 exports[`Formatter should format functions 20`] = `
-"get fun test(): int asm "POP"
+"get fun test(): int
+    asm "POP"
 "
 `;
 
