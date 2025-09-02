@@ -579,6 +579,7 @@ fun foo() {
         expect(await format(`fun test(): int asm "POP"`)).toMatchSnapshot()
         expect(await format(`fun test(): int asm "POP" "ADD" "AAA"`)).toMatchSnapshot()
         expect(await format(`fun test(): int asm "POP" // inline comment`)).toMatchSnapshot()
+        expect(await format(`get fun test(): int asm "POP" // inline comment`)).toMatchSnapshot()
     })
 
     it("should format top-level declarations", async () => {
