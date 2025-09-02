@@ -1152,6 +1152,11 @@ exports[`Formatter should format functions 19`] = `
 "
 `;
 
+exports[`Formatter should format functions 20`] = `
+"get fun test(): int asm "POP"
+"
+`;
+
 exports[`Formatter should format functions with many parameters 1`] = `
 "fun deployNftItem(
     itemIndex: int,
