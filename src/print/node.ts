@@ -250,6 +250,18 @@ export const printNode = (node: Node, ctx: Ctx): Doc | undefined => {
         return decls.printStructFieldDeclaration(node, ctx)
     }
 
+    if (node.type === "enum_declaration") {
+        return decls.printEnumDeclaration(node, ctx)
+    }
+
+    if (node.type === "enum_body") {
+        return decls.printEnumBody(node, ctx)
+    }
+
+    if (node.type === "enum_member_declaration") {
+        return decls.printEnumMemberDeclaration(node, ctx)
+    }
+
     if (node.type === "empty_statement") {
         return stmts.printEmptyStatement(node, ctx)
     }

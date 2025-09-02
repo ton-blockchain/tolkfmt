@@ -625,3 +625,88 @@ export function printAnnotationArguments(node: Node, ctx: Ctx): Doc | undefined 
         ...trailing,
     ])
 }
+
+export function printEnumDeclaration(node: Node, ctx: Ctx): Doc | undefined {
+    const annotationsN = node.childForFieldName("annotations")
+    const nameN = node.childForFieldName("name")
+    const backedTypeN = node.childForFieldName("backed_type")
+    const bodyN = node.childForFieldName("body")
+
+    if (!nameN) return undefined
+
+    const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const annotations = annotationsN ? (printNode(annotationsN, ctx) ?? empty()) : empty()
+    const name = text(nameN.text)
+    const body = bodyN ? (printNode(bodyN, ctx) ?? empty()) : empty()
+
+    let backedTypePart = empty()
+    if (backedTypeN) {
+        const backedType = printNode(backedTypeN, ctx) ?? empty()
+        backedTypePart = concat([text(": "), backedType])
+    }
+
+    const hasBody = bodyN !== null
+
+    return concat([
+        ...leading,
+        annotations,
+        text("enum "),
+        name,
+        backedTypePart,
+        ...(hasBody ? [text(" "), body] : []),
+        ...trailing,
+    ])
+}
+
+export function printEnumBody(node: Node, ctx: Ctx): Doc | undefined {
+    const members = node.namedChildren
+        .filter(child => child?.type === "enum_member_declaration")
+        .filter(child => child !== null)
+
+    if (members.length === 0) {
+        return text("{}")
+    }
+
+    const parts = members.map(member => printNode(member, ctx) ?? empty())
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    if (parts.length === 1) {
+        return concat([text("{"), parts[0], text("}"), ...trailing])
+    }
+
+    const [first, ...rest] = parts
+    const tailDocs = rest.map(part => concat([text(","), hardLine(), part]))
+
+    return concat([
+        text("{"),
+        indent(concat([hardLine(), first, ...tailDocs])),
+        ifBreak(text(","), undefined), // trailing comma
+        hardLine(),
+        text("}"),
+        ...trailing,
+    ])
+}
+
+export function printEnumMemberDeclaration(node: Node, ctx: Ctx): Doc | undefined {
+    const nameN = node.childForFieldName("name")
+    const defaultN = node.childForFieldName("default")
+
+    if (!nameN) return undefined
+
+    const name = text(nameN.text)
+    const defaultVal = defaultN ? (printNode(defaultN, ctx) ?? empty()) : empty()
+
+    const leading = takeLeading(node, ctx.comments)
+    const leadingDoc = formatLeading(leading)
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    let result = [name]
+
+    if (defaultVal.$ !== "Empty") {
+        result = [...result, text(" = "), defaultVal]
+    }
+
+    return concat([...leadingDoc, ...result, ...trailing])
+}
