@@ -1596,4 +1596,52 @@ fun foo() {
             `),
         ).toMatchSnapshot()
     })
+
+    it("should format enums", async () => {
+        await initParser(
+            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
+        )
+
+        expect(await format(`enum Color { RED, GREEN, BLUE }`)).toMatchSnapshot()
+
+        expect(await format(`enum Status : int32 { ACTIVE = 1, INACTIVE = 0 }`)).toMatchSnapshot()
+
+        expect(
+            await format(
+                `enum VeryLongEnumName { VERY_LONG_MEMBER_NAME, ANOTHER_VERY_LONG_MEMBER_NAME, THIRD_VERY_LONG_MEMBER_NAME }`,
+                {
+                    maxWidth: 30,
+                },
+            ),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`@inline enum Priority { LOW = 0, MEDIUM = 1, HIGH = 2 }`),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`
+            enum Result {
+                SUCCESS = 0,
+                ERROR = 1,
+                PENDING = 2,
+                CANCELLED = 3
+            }
+            `),
+        ).toMatchSnapshot()
+
+        expect(await format(`enum Empty {}`)).toMatchSnapshot()
+
+        expect(
+            await format(`
+            // Comment before enum
+            enum Status {
+                // Comment before member
+                ACTIVE, // Comment after member
+                INACTIVE
+            }
+            `),
+        ).toMatchSnapshot()
+    })
 })

@@ -805,6 +805,67 @@ exports[`Formatter should format dot access 3`] = `
 "
 `;
 
+exports[`Formatter should format enums 1`] = `
+"enum Color {
+    RED,
+    GREEN,
+    BLUE,
+}
+"
+`;
+
+exports[`Formatter should format enums 2`] = `
+"enum Status: int32 {
+    ACTIVE = 1,
+    INACTIVE = 0,
+}
+"
+`;
+
+exports[`Formatter should format enums 3`] = `
+"enum VeryLongEnumName {
+    VERY_LONG_MEMBER_NAME,
+    ANOTHER_VERY_LONG_MEMBER_NAME,
+    THIRD_VERY_LONG_MEMBER_NAME,
+}
+"
+`;
+
+exports[`Formatter should format enums 4`] = `
+"@inline
+enum Priority {
+    LOW = 0,
+    MEDIUM = 1,
+    HIGH = 2,
+}
+"
+`;
+
+exports[`Formatter should format enums 5`] = `
+"enum Result {
+    SUCCESS = 0,
+    ERROR = 1,
+    PENDING = 2,
+    CANCELLED = 3,
+}
+"
+`;
+
+exports[`Formatter should format enums 6`] = `
+"enum Empty {}
+"
+`;
+
+exports[`Formatter should format enums 7`] = `
+"// Comment before enum
+enum Status {
+    // Comment before member
+    ACTIVE // Comment after member,
+    INACTIVE,
+}
+"
+`;
+
 exports[`Formatter should format error handling 1`] = `
 "fun test() {
     assert (true) throw 1;
