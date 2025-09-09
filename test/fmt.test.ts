@@ -627,8 +627,12 @@ fun foo() {
         expect(await format(`struct MyStruct { readonly private x: int }`)).toMatchSnapshot()
         // Duplicate
         expect(await format(`struct MyStruct { readonly readonly x: int }`)).toMatchSnapshot()
-        expect(await format(`struct MyStruct { readonly private readonly x: int }`)).toMatchSnapshot()
-        expect(await format(`struct MyStruct { readonly private private readonly x: int }`)).toMatchSnapshot()
+        expect(
+            await format(`struct MyStruct { readonly private readonly x: int }`),
+        ).toMatchSnapshot()
+        expect(
+            await format(`struct MyStruct { readonly private private readonly x: int }`),
+        ).toMatchSnapshot()
     })
 
     it("should format advanced expressions", async () => {
