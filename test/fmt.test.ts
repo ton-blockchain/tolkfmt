@@ -614,6 +614,23 @@ fun foo() {
         expect(await format(`struct (8) MyStruct { x: int }`)).toMatchSnapshot()
     })
 
+    it("should format fields with modifiers", async () => {
+        await initParser(
+            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
+        )
+
+        expect(await format(`struct MyStruct { readonly x: int }`)).toMatchSnapshot()
+        expect(await format(`struct MyStruct { private readonly x: int }`)).toMatchSnapshot()
+
+        // Wrong order
+        expect(await format(`struct MyStruct { readonly private x: int }`)).toMatchSnapshot()
+        // Duplicate
+        expect(await format(`struct MyStruct { readonly readonly x: int }`)).toMatchSnapshot()
+        expect(await format(`struct MyStruct { readonly private readonly x: int }`)).toMatchSnapshot()
+        expect(await format(`struct MyStruct { readonly private private readonly x: int }`)).toMatchSnapshot()
+    })
+
     it("should format advanced expressions", async () => {
         await initParser(
             `${__dirname}/../wasm/tree-sitter.wasm`,

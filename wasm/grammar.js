@@ -105,11 +105,14 @@ const TOLK_GRAMMAR = {
         ),
     struct_field_declaration: $ =>
         seq(
+            field("modifiers", optional($.struct_field_modifiers)),
             field("name", $.identifier),
             ":",
             field("type", $._type_hint),
             optional(seq("=", field("default", $._expression))),
         ),
+
+    struct_field_modifiers: $ => repeat1(choice("readonly", "private")),
 
     enum_declaration: $ =>
         seq(
@@ -596,6 +599,7 @@ const TOLK_GRAMMAR = {
                 $.fun_callable_type,
                 $.nullable_type,
                 $.union_type,
+                $.null_literal,
             ),
         ),
 
@@ -638,7 +642,7 @@ const TOLK_GRAMMAR = {
     string_literal: $ =>
         token(
             choice(
-                /"""\s*[\s\S]*?"""/, // triple quotes
+                seq('"""', repeat(choice(/[^"]/, /"[^"]/, /""[^"]/)), '"""'),
                 /"(?:[^"\\\n]|\\.)*"/, // sing quote
             ),
         ),
