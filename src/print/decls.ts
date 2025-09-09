@@ -462,13 +462,34 @@ export function printStructBody(node: Node, ctx: Ctx): Doc | undefined {
     ])
 }
 
+function printModifiers(modifiers: Node | null): Doc | undefined {
+    if (!modifiers) return undefined
+    const modifiersList = modifiers.children
+        .map(it => it?.text ?? "")
+        .filter(it => it === "readonly" || it === "private")
+
+    if (modifiersList.length === 0) return undefined
+
+    let result = ""
+    if (modifiersList.includes("private")) {
+        result += "private "
+    }
+    if (modifiersList.includes("readonly")) {
+        result += "readonly "
+    }
+
+    return text(result)
+}
+
 export function printStructFieldDeclaration(node: Node, ctx: Ctx): Doc | undefined {
+    const modifiersN = node.childForFieldName("modifiers")
     const nameN = node.childForFieldName("name")
     const typeN = node.childForFieldName("type")
     const defaultN = node.childForFieldName("default")
 
     if (!nameN || !typeN) return undefined
 
+    const modifiers = printModifiers(modifiersN) ?? empty()
     const name = printNode(nameN, ctx) ?? empty()
     const type = printNode(typeN, ctx) ?? empty()
     const defaultVal = defaultN ? (printNode(defaultN, ctx) ?? empty()) : empty()
@@ -477,7 +498,7 @@ export function printStructFieldDeclaration(node: Node, ctx: Ctx): Doc | undefin
     const leadingDoc = formatLeading(leading)
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
-    let result = [name, text(": "), type]
+    let result = [modifiers, name, text(": "), type]
 
     if (defaultVal.$ !== "Empty") {
         result = [...result, text(" = "), defaultVal]

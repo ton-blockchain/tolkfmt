@@ -937,6 +937,48 @@ exports[`Formatter should format error handling 7`] = `
 "
 `;
 
+exports[`Formatter should format fields with modifiers 1`] = `
+"struct MyStruct {
+    readonly x: int
+}
+"
+`;
+
+exports[`Formatter should format fields with modifiers 2`] = `
+"struct MyStruct {
+    private readonly x: int
+}
+"
+`;
+
+exports[`Formatter should format fields with modifiers 3`] = `
+"struct MyStruct {
+    private readonly x: int
+}
+"
+`;
+
+exports[`Formatter should format fields with modifiers 4`] = `
+"struct MyStruct {
+    readonly x: int
+}
+"
+`;
+
+exports[`Formatter should format fields with modifiers 5`] = `
+"struct MyStruct {
+    private readonly x: int
+}
+"
+`;
+
+exports[`Formatter should format fields with modifiers 6`] = `
+"struct MyStruct {
+    private readonly x: int
+}
+"
+`;
+
 exports[`Formatter should format function calls 1`] = `
 "fun test() {
     foo();
