@@ -1799,8 +1799,8 @@ exports[`Formatter should format operators 9`] = `
 exports[`Formatter should format operators 10`] = `
 "fun test() {
     condition
-         ? veryLongConsequence
-         : veryLongAlternative;
+        ? veryLongConsequence
+        : veryLongAlternative;
 }
 "
 `;
@@ -1808,12 +1808,33 @@ exports[`Formatter should format operators 10`] = `
 exports[`Formatter should format operators 11`] = `
 "fun test() {
     condition
-         ? condition1
-             ? veryLongConsequence1
-             : veryLongAlternative1
-         : condition2
-             ? veryLongConsequence2
-             : veryLongAlternative2;
+        ? condition1
+            ? veryLongConsequence1
+            : veryLongAlternative1
+        : condition2
+            ? veryLongConsequence2
+            : veryLongAlternative2;
+}
+"
+`;
+
+exports[`Formatter should format operators 12`] = `
+"fun test() {
+    condition
+        ? condition1
+            ? fun() {
+                return 10;
+            }
+            : fun() {
+                return 20;
+            }
+        : condition2
+            ? fun() {
+                return 30;
+            }
+            : fun() {
+                return 40;
+            };
 }
 "
 `;

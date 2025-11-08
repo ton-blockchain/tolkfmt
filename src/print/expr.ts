@@ -276,15 +276,7 @@ export function printTernaryOperator(node: Node, ctx: Ctx): Doc | undefined {
     return group([
         condition,
         indent(
-            concat([
-                softLine(),
-                text(" ? "),
-                consequence,
-                softLine(),
-                text(" : "),
-                alternative,
-                ...trailing,
-            ]),
+            concat([line(), text("? "), consequence, line(), text(": "), alternative, ...trailing]),
         ),
     ])
 }
