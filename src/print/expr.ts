@@ -568,6 +568,27 @@ export function printMatchArm(node: Node, ctx: Ctx): Doc | undefined {
     ])
 }
 
+export function printLambdaExpression(node: Node, ctx: Ctx): Doc | undefined {
+    const parametersN = node.childForFieldName("parameters")
+    const returnTypeN = node.childForFieldName("return_type")
+    const bodyN = node.childForFieldName("body")
+
+    if (!parametersN || !bodyN) return undefined
+
+    const parameters = printNode(parametersN, ctx) ?? empty()
+    const body = printNode(bodyN, ctx) ?? empty()
+
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    let returnTypePart = empty()
+    if (returnTypeN) {
+        const returnType = printNode(returnTypeN, ctx) ?? empty()
+        returnTypePart = concat([text(": "), returnType])
+    }
+
+    return concat([text("fun"), parameters, returnTypePart, text(" "), body, ...trailing])
+}
+
 export function printNumericIndex(node: Node, ctx: Ctx): Doc | undefined {
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 

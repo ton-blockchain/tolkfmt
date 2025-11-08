@@ -1619,6 +1619,44 @@ fun foo() {
         ).toMatchSnapshot()
     })
 
+    it("should format lambda expressions", async () => {
+        await initParser(
+            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
+        )
+
+        expect(await format(`fun test() { val lambda = fun() {}; }`)).toMatchSnapshot()
+
+        expect(await format(`fun test() { val lambda = fun(x) { return x; }; }`)).toMatchSnapshot()
+
+        expect(
+            await format(`fun test() { val lambda = fun(x, y: slice) { return x; }; }`),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`fun test() { val lambda = fun(x): int { return x + 1; }; }`),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(
+                `fun test() { val lambda = fun(veryLongParameterName: VeryLongTypeName, anotherLongParameter: AnotherLongType): ReturnType { return value; }; }`,
+                {
+                    maxWidth: 30,
+                },
+            ),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`fun test() { process(fun(x: bool) { return x * 2; }); }`),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(
+                `fun test() { val lambda = fun(x: uint32) { val result = x + 1; return result; }; }`,
+            ),
+        ).toMatchSnapshot()
+    })
+
     it("should format enums", async () => {
         await initParser(
             `${__dirname}/../wasm/tree-sitter.wasm`,

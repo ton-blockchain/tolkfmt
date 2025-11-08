@@ -117,6 +117,10 @@ export const printNode = (node: Node, ctx: Ctx): Doc | undefined => {
         return expr.printTypedTuple(node, ctx)
     }
 
+    if (node.type === "lambda_expression") {
+        return expr.printLambdaExpression(node, ctx)
+    }
+
     if (node.type === "cast_as_operator") {
         return expr.printCastAsOperator(node, ctx)
     }
