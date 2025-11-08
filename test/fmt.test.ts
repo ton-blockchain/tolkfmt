@@ -219,6 +219,12 @@ fun foo() {
                 {maxWidth: 30},
             ),
         ).toMatchSnapshot()
+        expect(
+            await format(
+                `fun test() { condition ? condition1 ? fun () { return 10 } : fun () { return 20 } : condition2 ? fun () { return 30 } : fun () { return 40 }; }`,
+                {maxWidth: 30},
+            ),
+        ).toMatchSnapshot()
     })
 
     it("should format function calls", async () => {
