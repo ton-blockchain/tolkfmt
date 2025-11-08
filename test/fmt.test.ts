@@ -1627,9 +1627,7 @@ fun foo() {
 
         expect(await format(`fun test() { val lambda = fun() {}; }`)).toMatchSnapshot()
 
-        expect(
-            await format(`fun test() { val lambda = fun(x) { return x; }; }`),
-        ).toMatchSnapshot()
+        expect(await format(`fun test() { val lambda = fun(x) { return x; }; }`)).toMatchSnapshot()
 
         expect(
             await format(`fun test() { val lambda = fun(x, y: slice) { return x; }; }`),
