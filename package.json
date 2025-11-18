@@ -64,7 +64,7 @@
     },
     "dependencies": {
         "cac": "^6.7.14",
-        "glob": "^10.3.10",
+        "glob": "^11.1.0",
         "web-tree-sitter": "^0.25.6"
     },
     "packageManager": "yarn@4.6.0",
