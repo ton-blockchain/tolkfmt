@@ -1,5 +1,11 @@
-// It's a main grammar description, `tree-sitter generate` works based on this file.
-// This grammar describes the latest version of the Tolk language for TON Blockchain.
+/**
+ * @file Tolk grammar for tree-sitter
+ * @author TON Blockchain
+ * @license MIT
+ */
+
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
 
 function commaSep(rule) {
     return optional(commaSep1(rule))
@@ -206,20 +212,19 @@ const TOLK_GRAMMAR = {
 
     asm_body: $ =>
         prec.right(
-            seq(
-                "asm",
-                optional(
-                    seq(
-                        "(",
-                        repeat($.identifier),
-                        optional(seq("->", repeat($.number_literal))),
-                        ")",
-                    ),
-                ),
-                repeat1($.string_literal),
-                optional(";"),
-            ),
+            seq("asm", optional($.asm_body_rearrange), repeat1($.string_literal), optional(";")),
         ),
+
+    asm_body_rearrange: $ =>
+        seq(
+            "(",
+            optional(field("params", $.asm_body_rearrange_params)),
+            optional(field("return", $.asm_body_rearrange_return)),
+            ")",
+        ),
+
+    asm_body_rearrange_params: $ => repeat1($.identifier),
+    asm_body_rearrange_return: $ => seq("->", repeat($.number_literal)),
 
     builtin_specifier: $ => "builtin",
 

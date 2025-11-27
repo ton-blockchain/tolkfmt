@@ -922,6 +922,12 @@ fun foo() {
         expect(await format(`fun test() asm "PUSH 42"`)).toMatchSnapshot()
         expect(await format(`fun test() asm "PUSH 42" "ADD"`)).toMatchSnapshot()
         expect(await format(`fun test() asm (x -> 1) "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm (x) "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm (x, y) "PUSH 42" "ADD"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm (x, y -> 1 2) "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm () "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm (addrOrNull self) "STOPTSTDADDR"`)).toMatchSnapshot()
+        expect(await format(`fun test() asm ( -> 1 0) "LDOPTREF"`)).toMatchSnapshot()
         expect(
             await format(`fun test()
             asm """
@@ -967,6 +973,8 @@ fun foo() {
         expect(await format(`fun int.test() asm "PUSH 42"`)).toMatchSnapshot()
         expect(await format(`fun Foo.test(self) asm "PUSH 42" "ADD"`)).toMatchSnapshot()
         expect(await format(`fun Bar<Foo>.test(a: int) asm (x -> 1) "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun Baz.test() asm (x) "PUSH 42"`)).toMatchSnapshot()
+        expect(await format(`fun Qux.test() asm (x, y -> 1) "PUSH 42" "ADD"`)).toMatchSnapshot()
 
         // Builtin functions
         expect(await format(`fun [Baz<int, int>].test() builtin`)).toMatchSnapshot()

@@ -554,6 +554,9 @@ export function printAsmBody(node: Node, ctx: Ctx): Doc | undefined {
 
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
+    const rearrange = node.childForFieldName("rearrange")
+    const rearrangeDoc = rearrange ? (printAsmBodyRearrange(rearrange, ctx) ?? empty()) : empty()
+
     const strings = node.namedChildren
         .filter(child => child?.type === "string_literal")
         .filter(child => child !== null)
@@ -565,7 +568,39 @@ export function printAsmBody(node: Node, ctx: Ctx): Doc | undefined {
         return [line(), printNode(str, ctx) ?? empty(), ...strTrailing]
     })
 
-    return concat([...leading, text("asm"), group([...stringParts, ...trailing])])
+    return concat([...leading, text("asm"), rearrangeDoc, group([...stringParts, ...trailing])])
+}
+
+export function printAsmBodyRearrange(node: Node, _ctx: Ctx): Doc | undefined {
+    const params = node.childForFieldName("params")
+    const returnTypes = node.childForFieldName("return")
+
+    const parts: Doc[] = [text("(")]
+
+    if (params) {
+        const paramNodes = params.namedChildren
+            .filter(child => child?.type === "identifier")
+            .filter(child => child !== null)
+        const paramParts = paramNodes.map((param, index) =>
+            index > 0 ? concat([text(" "), text(param.text)]) : text(param.text),
+        )
+        parts.push(...paramParts)
+    }
+
+    if (returnTypes) {
+        parts.push(text(" -> "))
+        const returnNodes = returnTypes.namedChildren
+            .filter(child => child?.type === "number_literal")
+            .filter(child => child !== null)
+        const returnParts = returnNodes.map((ret, index) =>
+            index > 0 ? concat([text(" "), text(ret.text)]) : text(ret.text),
+        )
+        parts.push(...returnParts)
+    }
+
+    parts.push(text(")"))
+
+    return concat(parts)
 }
 
 export function printMethodReceiver(node: Node, ctx: Ctx): Doc | undefined {
