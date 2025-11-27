@@ -246,11 +246,47 @@ exports[`Formatter should format assembly and builtin functions 2`] = `
 
 exports[`Formatter should format assembly and builtin functions 3`] = `
 "fun test()
-    asm "PUSH 42"
+    asm(x -> 1) "PUSH 42"
 "
 `;
 
 exports[`Formatter should format assembly and builtin functions 4`] = `
+"fun test()
+    asm(x) "PUSH 42"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 5`] = `
+"fun test()
+    asm(x y) "PUSH 42" "ADD"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 6`] = `
+"fun test()
+    asm(x y -> 1 2) "PUSH 42"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 7`] = `
+"fun test()
+    asm() "PUSH 42"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 8`] = `
+"fun test()
+    asm(addrOrNull self) "STOPTSTDADDR"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 9`] = `
+"fun test()
+    asm( -> 1 0) "LDOPTREF"
+"
+`;
+
+exports[`Formatter should format assembly and builtin functions 10`] = `
 "fun test()
     asm """
         FOO
@@ -260,7 +296,7 @@ exports[`Formatter should format assembly and builtin functions 4`] = `
 "
 `;
 
-exports[`Formatter should format assembly and builtin functions 5`] = `
+exports[`Formatter should format assembly and builtin functions 11`] = `
 "fun test(): int
     asm
     "POP" // comment 1
@@ -269,7 +305,7 @@ exports[`Formatter should format assembly and builtin functions 5`] = `
 "
 `;
 
-exports[`Formatter should format assembly and builtin functions 6`] = `
+exports[`Formatter should format assembly and builtin functions 12`] = `
 "fun test(): int
     asm
     // leading comment 1
@@ -281,7 +317,7 @@ exports[`Formatter should format assembly and builtin functions 6`] = `
 "
 `;
 
-exports[`Formatter should format assembly and builtin functions 7`] = `
+exports[`Formatter should format assembly and builtin functions 13`] = `
 "fun test()
     builtin
 "
@@ -301,11 +337,23 @@ exports[`Formatter should format assembly and builtin methods 2`] = `
 
 exports[`Formatter should format assembly and builtin methods 3`] = `
 "fun Bar<Foo>.test(a: int)
-    asm "PUSH 42"
+    asm(x -> 1) "PUSH 42"
 "
 `;
 
 exports[`Formatter should format assembly and builtin methods 4`] = `
+"fun Baz.test()
+    asm(x) "PUSH 42"
+"
+`;
+
+exports[`Formatter should format assembly and builtin methods 5`] = `
+"fun Qux.test()
+    asm(x y -> 1) "PUSH 42" "ADD"
+"
+`;
+
+exports[`Formatter should format assembly and builtin methods 6`] = `
 "fun [Baz<int, int>].test()
     builtin
 "

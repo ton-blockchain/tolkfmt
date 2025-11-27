@@ -298,6 +298,10 @@ export const printNode = (node: Node, ctx: Ctx): Doc | undefined => {
         return decls.printAsmBody(node, ctx)
     }
 
+    if (node.type === "asm_body_rearrange") {
+        return decls.printAsmBodyRearrange(node, ctx)
+    }
+
     if (node.type === "builtin_specifier") {
         return decls.printBuiltinSpecifier(node, ctx)
     }
