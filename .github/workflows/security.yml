@@ -27,5 +27,6 @@ jobs:
       - name: Check project packages for deprecated
         run: yarn npm audit --all --severity moderate
 
+      # Remove from ignore after https://github.com/jestjs/jest/issues/15853
       - name: Check all packages for vulnerabilities
-        run: yarn npm audit --all --recursive --severity high
+        run: yarn npm audit --all --recursive --severity high --ignore 1109842
