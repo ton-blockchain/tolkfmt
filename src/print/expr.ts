@@ -155,9 +155,9 @@ export function printParenthesizedExpression(node: Node, ctx: Ctx): Doc | undefi
 }
 
 export function printTensorExpression(node: Node, ctx: Ctx): Doc | undefined {
-    const expressions = node.namedChildren
-        .filter(child => child?.type !== "," && child?.type !== "(" && child?.type !== ")")
-        .filter(child => child !== null)
+    const expressions = node.namedChildren.filter(
+        child => child.type !== "," && child.type !== "(" && child.type !== ")",
+    )
 
     if (expressions.length === 0) {
         return text("()")
@@ -183,9 +183,9 @@ export function printTensorExpression(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printTypedTuple(node: Node, ctx: Ctx): Doc | undefined {
-    const expressions = node.namedChildren
-        .filter(child => child?.type !== "," && child?.type !== "[" && child?.type !== "]")
-        .filter(child => child !== null)
+    const expressions = node.namedChildren.filter(
+        child => child.type !== "," && child.type !== "[" && child.type !== "]",
+    )
 
     if (expressions.length === 0) {
         return text("[]")
@@ -282,9 +282,7 @@ export function printTernaryOperator(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printArgumentList(node: Node, ctx: Ctx): Doc | undefined {
-    const args = node.namedChildren
-        .filter(child => child?.type === "call_argument")
-        .filter(child => child !== null)
+    const args = node.namedChildren.filter(child => child.type === "call_argument")
 
     if (args.length === 0) {
         return text("()")
@@ -319,7 +317,7 @@ export function printCallArgument(node: Node, ctx: Ctx): Doc | undefined {
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     // Check if there's a "mutate" keyword
-    const mutateNode = node.children.find(child => child?.text === "mutate")
+    const mutateNode = node.children.find(child => child.text === "mutate")
     if (mutateNode) {
         return concat([text("mutate "), expr, ...trailing])
     }
@@ -342,9 +340,7 @@ export function printObjectLiteral(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printObjectLiteralBody(node: Node, ctx: Ctx): Doc | undefined {
-    const args = node.namedChildren
-        .filter(child => child?.type === "instance_argument")
-        .filter(child => child !== null)
+    const args = node.namedChildren.filter(child => child.type === "instance_argument")
 
     if (args.length === 1) {
         // Check if this is actually an empty object
@@ -411,7 +407,7 @@ export function printInstanceArgument(
 
     const comma = ifBreak(text(","), isLast ? undefined : text(","))
     // Check if there's a colon in the node
-    const hasColon = node.children.some(child => child?.text === ":")
+    const hasColon = node.children.some(child => child.text === ":")
 
     if (hasColon) {
         if (valueN) {
@@ -462,7 +458,6 @@ export function printGenericInstantiation(node: Node, ctx: Ctx): Doc | undefined
 export function printInstantiationTList(node: Node, ctx: Ctx): Doc | undefined {
     const typesN = node
         .childrenForFieldName("types")
-        .filter(it => it !== null)
         .filter(child => child.type !== "," && child.type !== "<" && child.type !== ">")
 
     const parts = typesN.map(type => printNode(type, ctx) ?? empty())
@@ -493,9 +488,7 @@ export function printMatchExpression(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printMatchBody(node: Node, ctx: Ctx): Doc | undefined {
-    const arms = node.namedChildren
-        .filter(child => child?.type === "match_arm")
-        .filter(child => child !== null)
+    const arms = node.namedChildren.filter(child => child.type === "match_arm")
 
     if (arms.length === 0) {
         return text("{}")

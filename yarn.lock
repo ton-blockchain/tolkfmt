@@ -4669,7 +4669,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.22.0"
-    web-tree-sitter: "npm:^0.25.6"
+    web-tree-sitter: "npm:^0.26.3"
   bin:
     tolkfmt: ./bin/tolkfmt
   languageName: unknown
@@ -5010,10 +5010,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-tree-sitter@npm:^0.25.6":
-  version: 0.25.6
-  resolution: "web-tree-sitter@npm:0.25.6"
-  checksum: 10c0/381a78f947dba49a30b69c45cb59046586bdd9d653fe1ad2258483f322bbd07badd308497f375da7c93480c69bbe9c997b8fcebe697d1874b72098698cbff5b2
+"web-tree-sitter@npm:^0.26.3":
+  version: 0.26.3
+  resolution: "web-tree-sitter@npm:0.26.3"
+  checksum: 10c0/26e9033648772d03af228c721fcdf644734b51b3bcc40f3584677ba54efcda176c7989e9dbda1ebf3984024df0636e857cbbf3e71acc1023cf1d6ab7f42a71c2
   languageName: node
   linkType: hard
 

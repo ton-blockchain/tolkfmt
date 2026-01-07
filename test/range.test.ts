@@ -5,7 +5,7 @@ import {parseSelection} from "./utils/range-util"
 describe("Range Formatter", () => {
     beforeAll(async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
     })
