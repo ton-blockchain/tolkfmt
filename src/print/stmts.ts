@@ -56,9 +56,7 @@ export function printSetAssignment(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printBlockStatement(node: Node, ctx: Ctx): Doc | undefined {
-    const statements = node.namedChildren
-        .filter(it => it !== null)
-        .filter(it => it.type !== "comment")
+    const statements = node.namedChildren.filter(it => it.type !== "comment")
 
     const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
     const dangling = takeDangling(node, ctx.comments)
@@ -276,7 +274,7 @@ export function printTupleVarsDeclaration(node: Node, ctx: Ctx): Doc | undefined
     const varsN = node.childrenForFieldName("vars")
 
     // Extract all vars from the vars field
-    const vars = varsN.filter(child => child !== null).filter(child => child.isNamed)
+    const vars = varsN.filter(child => child.isNamed)
     const parts = vars.map(v => printNode(v, ctx) ?? empty())
 
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
@@ -301,7 +299,7 @@ export function printTensorVarsDeclaration(node: Node, ctx: Ctx): Doc | undefine
     const varsN = node.childrenForFieldName("vars")
 
     // Extract all vars from the vars field
-    const vars = varsN.filter(child => child !== null).filter(child => child.isNamed)
+    const vars = varsN.filter(child => child.isNamed)
     const parts = vars.map(v => printNode(v, ctx) ?? empty())
 
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
@@ -344,7 +342,7 @@ export function printAssertStatement(node: Node, ctx: Ctx): Doc | undefined {
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     // Check if it's the throw form: assert(...) throw ...
-    const hasThrow = node.children.some(child => child?.text === "throw")
+    const hasThrow = node.children.some(child => child.text === "throw")
 
     return hasThrow
         ? group([

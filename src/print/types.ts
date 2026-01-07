@@ -51,9 +51,9 @@ export function printParenthesizedType(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printTensorType(node: Node, ctx: Ctx): Doc | undefined {
-    const types = node.namedChildren
-        .filter(child => child?.type !== "," && child?.type !== "(" && child?.type !== ")")
-        .filter(child => child !== null)
+    const types = node.namedChildren.filter(
+        child => child.type !== "," && child.type !== "(" && child.type !== ")",
+    )
 
     if (types.length === 0) {
         return text("()")
@@ -79,9 +79,9 @@ export function printTensorType(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printTupleType(node: Node, ctx: Ctx): Doc | undefined {
-    const types = node.namedChildren
-        .filter(child => child?.type !== "," && child?.type !== "[" && child?.type !== "]")
-        .filter(child => child !== null)
+    const types = node.namedChildren.filter(
+        child => child.type !== "," && child.type !== "[" && child.type !== "]",
+    )
 
     if (types.length === 0) {
         return text("[]")

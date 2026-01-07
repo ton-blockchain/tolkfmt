@@ -4,7 +4,7 @@ import {initParser} from "../src/parser"
 describe("Formatter", () => {
     it("should format", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -50,7 +50,7 @@ fun foo() {
 
     it("should format simple literals", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -79,7 +79,7 @@ fun foo() {
 
     it("should format basic types", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -116,7 +116,7 @@ fun foo() {
 
     it("should format simple expressions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -186,7 +186,7 @@ fun foo() {
 
     it("should format operators", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -229,7 +229,7 @@ fun foo() {
 
     it("should format function calls", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -267,7 +267,7 @@ fun foo() {
 
     it("should format object literals", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -348,7 +348,7 @@ fun foo() {
 
     it("should format dot access", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -371,7 +371,7 @@ fun foo() {
 
     it("should format control flow statements", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -414,7 +414,7 @@ fun foo() {
 
     it("should format loops", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -455,7 +455,7 @@ fun foo() {
 
     it("should format conditions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -492,7 +492,7 @@ fun foo() {
 
     it("should format variables", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -534,7 +534,7 @@ fun foo() {
 
     it("should format functions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -590,7 +590,7 @@ fun foo() {
 
     it("should format top-level declarations", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -622,7 +622,7 @@ fun foo() {
 
     it("should format fields with modifiers", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -643,7 +643,7 @@ fun foo() {
 
     it("should format advanced expressions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -669,7 +669,7 @@ fun foo() {
 
     it("should format generics", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -717,7 +717,7 @@ fun foo() {
 
     it("should format annotations", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -768,7 +768,7 @@ fun foo() {
 
     it("should format advanced types", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -786,7 +786,7 @@ fun foo() {
 
     it("should format error handling", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -831,7 +831,7 @@ fun foo() {
 
     it("should format pattern matching", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -901,7 +901,7 @@ fun foo() {
 
     it("should format functions with many parameters", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -914,7 +914,7 @@ fun foo() {
 
     it("should format assembly and builtin functions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -965,7 +965,7 @@ fun foo() {
 
     it("should format assembly and builtin methods", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -982,7 +982,7 @@ fun foo() {
 
     it("should format misc constructs", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -1635,7 +1635,7 @@ fun foo() {
 
     it("should format lambda expressions", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 
@@ -1673,7 +1673,7 @@ fun foo() {
 
     it("should format enums", async () => {
         await initParser(
-            `${__dirname}/../wasm/tree-sitter.wasm`,
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
             `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
         )
 

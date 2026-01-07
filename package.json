@@ -37,8 +37,9 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "tsc && yarn copy-wasm",
+        "build": "tsc && yarn copy-wasm && yarn copy-wasm-web",
         "copy-wasm": "mkdir -p dist/wasm && cp -r wasm/* dist/wasm/",
+        "copy-wasm-web": "mkdir -p dist/wasm && cp node_modules/web-tree-sitter/web-tree-sitter.wasm dist/wasm/",
         "clean": "rm -rf dist",
         "rebuild": "yarn clean && yarn build",
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
@@ -65,7 +66,7 @@
     "dependencies": {
         "cac": "^6.7.14",
         "glob": "11.1.0",
-        "web-tree-sitter": "^0.25.6"
+        "web-tree-sitter": "^0.26.3"
     },
     "packageManager": "yarn@4.6.0",
     "prettier": {

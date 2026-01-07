@@ -85,9 +85,7 @@ export function bindComments(root: Node): CommentMap {
                 comments[index].end < node.endIndex
             ) {
                 const comment = comments[index]
-                const statements = node.namedChildren.filter(
-                    child => child !== null && child.type !== "comment",
-                )
+                const statements = node.namedChildren.filter(child => child.type !== "comment")
 
                 // If block has no statements, comment should be dangling
                 if (statements.length === 0) {
@@ -98,7 +96,6 @@ export function bindComments(root: Node): CommentMap {
                 // Check if comment is between statements or not attached to any statement
                 let attachedToStatement = false
                 for (const stmt of statements) {
-                    if (!stmt) continue
                     if (comment.end <= stmt.startIndex) {
                         // Comment is before this statement, should be leading to statement
                         attachedToStatement = true
@@ -146,11 +143,11 @@ export function bindComments(root: Node): CommentMap {
 }
 
 function lastTokenRow(node: Node): Node {
-    let cur: Node | undefined = node
-    while (cur !== undefined && cur.namedChildCount > 0) {
+    let cur: Node = node
+    while (cur.namedChildCount > 0) {
         cur = cur.namedChildren[cur.namedChildCount - 1] ?? undefined
     }
-    return cur ?? node
+    return cur
 }
 
 export function getLeading(node: Node, comments: CommentMap): CommentInfo[] {
@@ -192,7 +189,6 @@ export function takeDangling(node: Node, comments: CommentMap): CommentInfo[] {
 function dfs(n: Node, cb: (n: Node) => void): void {
     cb(n)
     for (const child of n.namedChildren) {
-        if (!child) continue
         dfs(child, cb)
     }
 }
@@ -248,7 +244,6 @@ function attachDangling(c: CommentInfo, node: Node, map: CommentMap): void {
 
 function isInsideChild(comment: Node, parent: Node): boolean {
     for (const child of parent.namedChildren) {
-        if (!child) continue
         if (child.startIndex <= comment.startIndex && child.endIndex >= comment.endIndex) {
             return true
         }

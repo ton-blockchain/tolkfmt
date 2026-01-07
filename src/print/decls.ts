@@ -21,7 +21,7 @@ import type {ImportInfo} from "./imports"
 import {categorizeImport, extractImportPath, getImportSubcategory, sortImports} from "./imports"
 
 export function printSourceFile(node: Node, ctx: Ctx): Doc | undefined {
-    const decls = node.children.filter(it => it !== null).filter(it => it.type !== "comment")
+    const decls = node.children.filter(it => it.type !== "comment")
 
     if (ctx.sortImports) {
         const imports: Node[] = []
@@ -191,9 +191,7 @@ export function printFunction(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printParameterList(node: Node, ctx: Ctx): Doc | undefined {
-    const params = node.namedChildren
-        .filter(child => child?.type === "parameter_declaration")
-        .filter(child => child !== null)
+    const params = node.namedChildren.filter(child => child.type === "parameter_declaration")
 
     if (params.length === 0) {
         return text("()")
@@ -439,9 +437,7 @@ export function printStructDeclaration(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printStructBody(node: Node, ctx: Ctx): Doc | undefined {
-    const fields = node.namedChildren
-        .filter(child => child?.type === "struct_field_declaration")
-        .filter(child => child !== null)
+    const fields = node.namedChildren.filter(child => child.type === "struct_field_declaration")
 
     if (fields.length === 0) {
         return text("{}")
@@ -465,7 +461,7 @@ export function printStructBody(node: Node, ctx: Ctx): Doc | undefined {
 function printModifiers(modifiers: Node | null): Doc | undefined {
     if (!modifiers) return undefined
     const modifiersList = modifiers.children
-        .map(it => it?.text ?? "")
+        .map(it => it.text)
         .filter(it => it === "readonly" || it === "private")
 
     if (modifiersList.length === 0) return undefined
@@ -508,9 +504,7 @@ export function printStructFieldDeclaration(node: Node, ctx: Ctx): Doc | undefin
 }
 
 export function printTypeParameters(node: Node, ctx: Ctx): Doc | undefined {
-    const params = node.namedChildren
-        .filter(child => child?.type === "type_parameter")
-        .filter(child => child !== null)
+    const params = node.namedChildren.filter(child => child.type === "type_parameter")
 
     if (params.length === 0) {
         return text("<>")
@@ -557,9 +551,7 @@ export function printAsmBody(node: Node, ctx: Ctx): Doc | undefined {
     const rearrange = node.childForFieldName("rearrange")
     const rearrangeDoc = rearrange ? (printAsmBodyRearrange(rearrange, ctx) ?? empty()) : empty()
 
-    const strings = node.namedChildren
-        .filter(child => child?.type === "string_literal")
-        .filter(child => child !== null)
+    const strings = node.namedChildren.filter(child => child.type === "string_literal")
 
     const stringParts = strings.flatMap(str => {
         const strTrailing = takeTrailing(str, ctx.comments).map(c =>
@@ -578,9 +570,7 @@ export function printAsmBodyRearrange(node: Node, _ctx: Ctx): Doc | undefined {
     const parts: Doc[] = [text("(")]
 
     if (params) {
-        const paramNodes = params.namedChildren
-            .filter(child => child?.type === "identifier")
-            .filter(child => child !== null)
+        const paramNodes = params.namedChildren.filter(child => child.type === "identifier")
         const paramParts = paramNodes.map((param, index) =>
             index > 0 ? concat([text(" "), text(param.text)]) : text(param.text),
         )
@@ -589,9 +579,9 @@ export function printAsmBodyRearrange(node: Node, _ctx: Ctx): Doc | undefined {
 
     if (returnTypes) {
         parts.push(text(" -> "))
-        const returnNodes = returnTypes.namedChildren
-            .filter(child => child?.type === "number_literal")
-            .filter(child => child !== null)
+        const returnNodes = returnTypes.namedChildren.filter(
+            child => child.type === "number_literal",
+        )
         const returnParts = returnNodes.map((ret, index) =>
             index > 0 ? concat([text(" "), text(ret.text)]) : text(ret.text),
         )
@@ -614,9 +604,7 @@ export function printMethodReceiver(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printAnnotationList(node: Node, ctx: Ctx): Doc | undefined {
-    const annotations = node.namedChildren
-        .filter(child => child?.type === "annotation")
-        .filter(child => child !== null)
+    const annotations = node.namedChildren.filter(child => child.type === "annotation")
 
     if (annotations.length === 0) {
         return empty()
@@ -658,9 +646,9 @@ export function printAnnotation(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printAnnotationArguments(node: Node, ctx: Ctx): Doc | undefined {
-    const exprs = node.namedChildren
-        .filter(child => child?.type !== "," && child?.type !== "(" && child?.type !== ")")
-        .filter(child => child !== null)
+    const exprs = node.namedChildren.filter(
+        child => child.type !== "," && child.type !== "(" && child.type !== ")",
+    )
 
     if (exprs.length === 0) {
         return text("()")
@@ -720,9 +708,7 @@ export function printEnumDeclaration(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printEnumBody(node: Node, ctx: Ctx): Doc | undefined {
-    const members = node.namedChildren
-        .filter(child => child?.type === "enum_member_declaration")
-        .filter(child => child !== null)
+    const members = node.namedChildren.filter(child => child.type === "enum_member_declaration")
 
     if (members.length === 0) {
         return text("{}")

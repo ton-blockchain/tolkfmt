@@ -44,7 +44,7 @@ export const format = async (code: string, opts?: FormatOptions): Promise<string
 
 async function createAndInitTolkParser(): Promise<Parser> {
     await initParser(
-        `${__dirname}/../wasm/tree-sitter.wasm`,
+        `${__dirname}/../wasm/web-tree-sitter.wasm`,
         `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
     )
     return createTolkParser()
