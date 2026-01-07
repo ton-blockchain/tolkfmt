@@ -1,6 +1,6 @@
 {
     "name": "tolkfmt-test-dev",
-    "version": "0.0.25",
+    "version": "0.0.26",
     "description": "Code formatter for the Tolk programming language",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
