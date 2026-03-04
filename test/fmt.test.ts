@@ -1738,5 +1738,41 @@ fun foo() {
             }
             `),
         ).toMatchSnapshot()
+
+        expect(
+            await format(`
+            enum Foo {
+                foo = 100 // comment
+                bar = 200
+                baz = 300
+            }
+            `),
+        ).toMatchSnapshot()
+    })
+
+    it("should format enum members without commas", async () => {
+        await initParser(
+            `${__dirname}/../wasm/web-tree-sitter.wasm`,
+            `${__dirname}/../wasm/tree-sitter-tolk.wasm`,
+        )
+
+        expect(
+            await format(`
+            enum Foo {
+                foo = 100 // comment
+                bar = 200
+            }
+            `),
+        ).toMatchSnapshot()
+
+        expect(
+            await format(`
+            enum Foo {
+                foo = 100 // comment foo
+                bar = 200 // comment bar
+                baz = 300 // comment baz
+            }
+            `),
+        ).toMatchSnapshot()
     })
 })

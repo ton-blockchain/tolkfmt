@@ -775,12 +775,11 @@ export function printEnumBody(node: Node, ctx: Ctx): Doc | undefined {
     }
 
     const [first, ...rest] = parts
-    const tailDocs = rest.map(part => concat([text(","), hardLine(), part]))
+    const tailDocs = rest.map(part => concat([hardLine(), part]))
 
     return concat([
         text("{"),
         indent(concat([hardLine(), first, ...tailDocs])),
-        text(","), // trailing comma
         hardLine(),
         text("}"),
         ...trailing,
