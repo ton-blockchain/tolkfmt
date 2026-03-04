@@ -80,4 +80,76 @@ fun bar() {
         const result = await format(code)
         expect(result).toMatchSnapshot()
     })
+
+    it("should handle comment in function parameters", async () => {
+        const code = `
+fun foo(
+    a: int,
+    b: int,
+    // some comment
+    mutate c: int
+) {}
+        `
+
+        const result = await format(code)
+        expect(result).toMatchSnapshot()
+    })
+
+    it("should preserve comment before first function parameter", async () => {
+        const code = `
+fun foo(
+    // first param comment
+    a: int,
+    b: int
+) {}
+        `
+
+        const result = await format(code)
+        expect(result).toMatchSnapshot()
+    })
+
+    it("should preserve mixed comments in function parameters", async () => {
+        const code = `
+fun foo(
+    a: int, // a comment
+    // b comment
+    b: int = 10,
+    mutate c: int // c comment
+) {}
+        `
+
+        const result = await format(code)
+        expect(result).toMatchSnapshot()
+    })
+
+    it("should preserve comments in method parameters", async () => {
+        const code = `
+fun Foo.bar(
+    // self comment
+    self,
+    // value comment
+    value: int
+) {}
+        `
+
+        const result = await format(code)
+        expect(result).toMatchSnapshot()
+    })
+
+    it("should preserve comments in lambda parameters", async () => {
+        const code = `
+fun test() {
+    val cb = fun(
+        // x comment
+        x: int,
+        y: int
+    ) {
+        return x + y;
+    };
+}
+        `
+
+        const result = await format(code)
+        expect(result).toMatchSnapshot()
+    })
 })

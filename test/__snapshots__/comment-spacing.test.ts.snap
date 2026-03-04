@@ -11,6 +11,16 @@ fun bar() {
 "
 `;
 
+exports[`Comment spacing should handle comment in function parameters 1`] = `
+"fun foo(
+    a: int,
+    b: int,
+    // some comment
+    mutate c: int,
+) {}
+"
+`;
+
 exports[`Comment spacing should handle comment with blank line between declarations 1`] = `
 "fun foo() {
     return 1;
@@ -47,6 +57,48 @@ exports[`Comment spacing should not add extra blank line before comment between 
     // comment
     bar();
 }
+"
+`;
+
+exports[`Comment spacing should preserve comment before first function parameter 1`] = `
+"fun foo(
+    // first param comment
+    a: int,
+    b: int,
+) {}
+"
+`;
+
+exports[`Comment spacing should preserve comments in lambda parameters 1`] = `
+"fun test() {
+    val cb = fun(
+        // x comment
+        x: int,
+        y: int,
+    ) {
+        return x + y;
+    };
+}
+"
+`;
+
+exports[`Comment spacing should preserve comments in method parameters 1`] = `
+"fun Foo.bar(
+    // self comment
+    self,
+    // value comment
+    value: int,
+) {}
+"
+`;
+
+exports[`Comment spacing should preserve mixed comments in function parameters 1`] = `
+"fun foo(
+    a: int, // a comment
+    // b comment
+    b: int = 10,
+    mutate c: int, // c comment
+) {}
 "
 `;
 

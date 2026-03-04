@@ -197,20 +197,25 @@ export function printParameterList(node: Node, ctx: Ctx): Doc | undefined {
         return text("()")
     }
 
-    const parts = params.map(param => printNode(param, ctx) ?? empty())
+    const parts = params.map((param, index) => {
+        const isLast = index === params.length - 1
+        const comma = isLast ? ifBreak(text(","), undefined) : text(",")
+
+        return printParameterDeclarationWithComma(param, ctx, comma) ?? empty()
+    })
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     if (parts.length === 1) {
-        return concat([text("("), parts[0], text(")"), ...trailing])
+        const single = printParameterDeclaration(params[0], ctx) ?? empty()
+        return concat([text("("), single, text(")"), ...trailing])
     }
 
     const [first, ...rest] = parts
-    const tailDocs = rest.map(part => concat([text(","), line(), part]))
+    const tailDocs = rest.map(part => concat([line(), part]))
 
     return group([
         text("("),
         indent(concat([softLine(), first, ...tailDocs])),
-        ifBreak(text(","), undefined), // trailing comma
         softLine(),
         text(")"),
         ...trailing,
@@ -218,6 +223,23 @@ export function printParameterList(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printParameterDeclaration(node: Node, ctx: Ctx): Doc | undefined {
+    const parts = buildParameterDeclaration(node, ctx)
+    if (!parts) return undefined
+
+    return concat([...parts.leadingDoc, ...parts.result, ...parts.trailing])
+}
+
+function printParameterDeclarationWithComma(node: Node, ctx: Ctx, comma: Doc): Doc | undefined {
+    const parts = buildParameterDeclaration(node, ctx)
+    if (!parts) return undefined
+
+    return concat([...parts.leadingDoc, ...parts.result, comma, ...parts.trailing])
+}
+
+function buildParameterDeclaration(
+    node: Node,
+    ctx: Ctx,
+): {leadingDoc: Doc[]; result: Doc[]; trailing: Doc[]} | undefined {
     const mutateN = node.childForFieldName("mutate")
     const nameN = node.childForFieldName("name")
     const typeN = node.childForFieldName("type")
@@ -226,6 +248,8 @@ export function printParameterDeclaration(node: Node, ctx: Ctx): Doc | undefined
     if (!nameN) return undefined
 
     const name = printNode(nameN, ctx) ?? empty()
+    const leading = takeLeading(node, ctx.comments)
+    const leadingDoc = formatLeading(leading)
     const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     let result = [name]
@@ -244,7 +268,7 @@ export function printParameterDeclaration(node: Node, ctx: Ctx): Doc | undefined
         result = [...result, text(" = "), defaultVal]
     }
 
-    return concat([...result, ...trailing])
+    return {leadingDoc, result, trailing}
 }
 
 export function printBuiltinSpecifier(node: Node, ctx: Ctx): Doc | undefined {
