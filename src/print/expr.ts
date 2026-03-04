@@ -183,26 +183,29 @@ export function printTensorExpression(node: Node, ctx: Ctx): Doc | undefined {
 }
 
 export function printTypedTuple(node: Node, ctx: Ctx): Doc | undefined {
-    const expressions = node.namedChildren.filter(
-        child => child.type !== "," && child.type !== "[" && child.type !== "]",
-    )
+    const typeN = node.childForFieldName("type")
+    const tupleType = typeN ? (printNode(typeN, ctx) ?? empty()) : empty()
+    const hasType = typeN !== null
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const expressions = node.childrenForFieldName("elements").filter(child => child.isNamed)
+    const openBracket = hasType ? concat([tupleType, text(" [")]) : text("[")
 
     if (expressions.length === 0) {
-        return text("[]")
+        return concat([tupleType, text(hasType ? " []" : "[]"), ...trailing])
     }
 
     const parts = expressions.map(expr => printNode(expr, ctx) ?? empty())
-    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
 
     if (parts.length === 1) {
-        return concat([text("["), parts[0], text("]"), ...trailing])
+        return concat([openBracket, parts[0], text("]"), ...trailing])
     }
 
     const [first, ...rest] = parts
     const tailDocs = rest.map(part => concat([text(","), line(), part]))
 
     return group([
-        text("["),
+        openBracket,
         indent(concat([softLine(), first, ...tailDocs])),
         softLine(),
         text("]"),

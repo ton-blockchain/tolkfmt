@@ -238,6 +238,18 @@ export const printNode = (node: Node, ctx: Ctx): Doc | undefined => {
         return decls.printImportDirective(node, ctx)
     }
 
+    if (node.type === "contract_declaration") {
+        return decls.printContractDeclaration(node, ctx)
+    }
+
+    if (node.type === "contract_body") {
+        return decls.printContractBody(node, ctx)
+    }
+
+    if (node.type === "contract_field") {
+        return decls.printContractField(node, ctx)
+    }
+
     if (node.type === "global_var_declaration") {
         return decls.printGlobalVarDeclaration(node, ctx)
     }

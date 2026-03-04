@@ -1887,6 +1887,20 @@ exports[`Formatter should format operators 12`] = `
 "
 `;
 
+exports[`Formatter should format operators 13`] = `
+"fun test() {
+    a ?? b;
+}
+"
+`;
+
+exports[`Formatter should format operators 14`] = `
+"fun test() {
+    a ?? b ?? c;
+}
+"
+`;
+
 exports[`Formatter should format pattern matching 1`] = `
 "fun test() {
     match (value) {}
@@ -2116,7 +2130,46 @@ exports[`Formatter should format simple expressions 17`] = `
 
 exports[`Formatter should format simple expressions 18`] = `
 "fun test() {
+    array<int> [];
+}
+"
+`;
+
+exports[`Formatter should format simple expressions 19`] = `
+"fun test() {
+    lisp_list<int> [];
+}
+"
+`;
+
+exports[`Formatter should format simple expressions 20`] = `
+"fun test() {
+    map<int, int> [];
+}
+"
+`;
+
+exports[`Formatter should format simple expressions 21`] = `
+"fun test() {
+    array<int> [1, 2];
+}
+"
+`;
+
+exports[`Formatter should format simple expressions 22`] = `
+"fun test() {
     [
+        veryLongExpression,
+        anotherVeryLongExpression,
+        thirdLongExpression
+    ];
+}
+"
+`;
+
+exports[`Formatter should format simple expressions 23`] = `
+"fun test() {
+    array<VeryLongTypeName> [
         veryLongExpression,
         anotherVeryLongExpression,
         thirdLongExpression
@@ -2439,6 +2492,27 @@ exports[`Formatter should format top-level declarations 12`] = `
 exports[`Formatter should format top-level declarations 13`] = `
 "struct (8) MyStruct {
     x: int
+}
+"
+`;
+
+exports[`Formatter should format top-level declarations 14`] = `
+"contract Config {}
+"
+`;
+
+exports[`Formatter should format top-level declarations 15`] = `
+"contract Config {
+    owner: address
+}
+"
+`;
+
+exports[`Formatter should format top-level declarations 16`] = `
+"contract Config {
+    owner: address
+    minStake: 1 + 2
+    code: Cell
 }
 "
 `;

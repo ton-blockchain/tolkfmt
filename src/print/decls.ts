@@ -384,6 +384,59 @@ export function printImportDirective(node: Node, ctx: Ctx): Doc | undefined {
     return concat([...leading, text("import "), path, ...trailing])
 }
 
+export function printContractDeclaration(node: Node, ctx: Ctx): Doc | undefined {
+    const nameN = node.childForFieldName("name")
+    const bodyN = node.childForFieldName("body")
+
+    if (!nameN || !bodyN) return undefined
+
+    const leading = takeLeading(node, ctx.comments).map(c => concat([text(c.text), hardLine()]))
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const name = printNode(nameN, ctx) ?? empty()
+    const body = printNode(bodyN, ctx) ?? empty()
+
+    return concat([...leading, text("contract "), name, text(" "), body, ...trailing])
+}
+
+export function printContractBody(node: Node, ctx: Ctx): Doc | undefined {
+    const fields = node.namedChildren.filter(child => child.type === "contract_field")
+
+    if (fields.length === 0) {
+        return text("{}")
+    }
+
+    const parts = fields.map(field => printNode(field, ctx) ?? empty())
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    const [first, ...rest] = parts
+    const tailDocs = rest.map(part => concat([hardLine(), part]))
+
+    return concat([
+        text("{"),
+        indent(concat([hardLine(), first, ...tailDocs])),
+        hardLine(),
+        text("}"),
+        ...trailing,
+    ])
+}
+
+export function printContractField(node: Node, ctx: Ctx): Doc | undefined {
+    const nameN = node.childForFieldName("name")
+    const valueN = node.childForFieldName("value")
+
+    if (!nameN || !valueN) return undefined
+
+    const name = printNode(nameN, ctx) ?? empty()
+    const value = printNode(valueN, ctx) ?? empty()
+
+    const leading = takeLeading(node, ctx.comments)
+    const leadingDoc = formatLeading(leading)
+    const trailing = takeTrailing(node, ctx.comments).map(c => concat([text(" "), text(c.text)]))
+
+    return concat([...leadingDoc, name, text(": "), value, ...trailing])
+}
+
 export function printGlobalVarDeclaration(node: Node, ctx: Ctx): Doc | undefined {
     const annotationsN = node.childForFieldName("annotations")
     const nameN = node.childForFieldName("name")

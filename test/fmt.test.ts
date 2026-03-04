@@ -176,9 +176,19 @@ fun foo() {
         expect(await format(`fun test() { []; }`)).toMatchSnapshot()
         expect(await format(`fun test() { [42]; }`)).toMatchSnapshot()
         expect(await format(`fun test() { [1, 2]; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { array<int>[]; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { lisp_list<int>[]; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { map<int, int>[]; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { array<int>[1, 2]; }`)).toMatchSnapshot()
         expect(
             await format(
                 `fun test() { [veryLongExpression, anotherVeryLongExpression, thirdLongExpression]; }`,
+                {maxWidth: 30},
+            ),
+        ).toMatchSnapshot()
+        expect(
+            await format(
+                `fun test() { array<VeryLongTypeName>[veryLongExpression, anotherVeryLongExpression, thirdLongExpression]; }`,
                 {maxWidth: 30},
             ),
         ).toMatchSnapshot()
@@ -225,6 +235,10 @@ fun foo() {
                 {maxWidth: 30},
             ),
         ).toMatchSnapshot()
+
+        // Null-coalescing operator
+        expect(await format(`fun test() { a ?? b; }`)).toMatchSnapshot()
+        expect(await format(`fun test() { a ?? b ?? c; }`)).toMatchSnapshot()
     })
 
     it("should format function calls", async () => {
@@ -618,6 +632,13 @@ fun foo() {
             await format(`struct MyStruct { x: int = 42, y: string = "hello" }`),
         ).toMatchSnapshot()
         expect(await format(`struct (8) MyStruct { x: int }`)).toMatchSnapshot()
+
+        // Contract declarations
+        expect(await format(`contract Config {}`)).toMatchSnapshot()
+        expect(await format(`contract Config { owner: address }`)).toMatchSnapshot()
+        expect(
+            await format(`contract Config { owner: address, minStake: 1 + 2, code: Cell }`),
+        ).toMatchSnapshot()
     })
 
     it("should format fields with modifiers", async () => {

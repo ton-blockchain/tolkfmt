@@ -1,6 +1,6 @@
 /**
  * @file Tolk grammar for tree-sitter
- * @author TON Blockchain
+ * @author TON Core
  * @license MIT
  */
 
@@ -33,6 +33,7 @@ const TOLK_GRAMMAR = {
         choice(
             $.tolk_required_version,
             $.import_directive,
+            $.contract_declaration,
             $.global_var_declaration,
             $.constant_declaration,
             $.type_alias_declaration,
@@ -48,6 +49,14 @@ const TOLK_GRAMMAR = {
     version_value: $ => /(\d+)(.\d+)?(.\d+)?/,
 
     import_directive: $ => seq("import", field("path", $.string_literal)),
+
+    contract_declaration: $ =>
+        seq("contract", field("name", $.identifier), field("body", $.contract_body)),
+
+    contract_body: $ => seq("{", repeat(seq($.contract_field, optional(","))), "}"),
+
+    contract_field: $ =>
+        seq(field("name", $.identifier), ":", field("value", choice($._type_hint, $._expression))),
 
     global_var_declaration: $ =>
         prec.right(
@@ -212,7 +221,12 @@ const TOLK_GRAMMAR = {
 
     asm_body: $ =>
         prec.right(
-            seq("asm", optional($.asm_body_rearrange), repeat1($.string_literal), optional(";")),
+            seq(
+                "asm",
+                optional(field("rearrange", $.asm_body_rearrange)),
+                repeat1($.string_literal),
+                optional(";"),
+            ),
         ),
 
     asm_body_rearrange: $ =>
@@ -438,6 +452,7 @@ const TOLK_GRAMMAR = {
 
     binary_operator: $ =>
         choice(
+            prec.right(10, seq($._expression, field("operator_name", "??"), $._expression)),
             prec.left(
                 13,
                 seq($._expression, field("operator_name", choice("&&", "||")), $._expression),
@@ -588,7 +603,14 @@ const TOLK_GRAMMAR = {
     parenthesized_expression: $ => seq("(", field("inner", $._expression), optional(","), ")"),
     tensor_expression: $ =>
         choice(seq("(", ")"), seq("(", commaSep2($._expression), optional(","), ")")),
-    typed_tuple: $ => seq("[", commaSep($._expression), optional(","), "]"),
+    typed_tuple: $ =>
+        seq(
+            optional(field("type", $._type_hint)),
+            "[",
+            field("elements", commaSep($._expression)),
+            optional(","),
+            "]",
+        ),
 
     lambda_expression: $ =>
         prec.right(
@@ -659,7 +681,7 @@ const TOLK_GRAMMAR = {
         token(
             choice(
                 seq('"""', repeat(choice(/[^"]/, /"[^"]/, /""[^"]/)), '"""'),
-                /"(?:[^"\\\n]|\\.)*"/, // sing quote
+                seq('"', repeat(choice(/[^"\\\n]/, /\\./)), '"'),
             ),
         ),
     boolean_literal: $ => choice("true", "false"),
