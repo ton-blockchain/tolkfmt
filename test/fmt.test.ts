@@ -381,6 +381,16 @@ fun foo() {
             }.toCell();
         }`),
         ).toMatchSnapshot()
+
+        // With function call containing object literal - should not break before dot
+        expect(
+            await format(`fun test() {
+            Foo({
+                bar: 1,
+                tar: 2,
+            }).send(3);
+        }`),
+        ).toMatchSnapshot()
     })
 
     it("should format control flow statements", async () => {

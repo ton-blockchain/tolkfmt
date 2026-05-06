@@ -18,6 +18,15 @@ import {
 } from "../doc"
 import {takeLeading, takeTrailing} from "../comments"
 
+function hasObjectLiteral(node: Node): boolean {
+    if (node.type === "object_literal") return true
+    for (let i = 0; i < node.childCount; i++) {
+        const child = node.child(i)
+        if (child && hasObjectLiteral(child)) return true
+    }
+    return false
+}
+
 export function printDotAccess(node: Node, ctx: Ctx): Doc | undefined {
     const qualifierN = node.childForFieldName("obj")
     const fieldN = node.childForFieldName("field")
@@ -33,12 +42,13 @@ export function printDotAccess(node: Node, ctx: Ctx): Doc | undefined {
     const leadingField = takeLeading(fieldN, ctx.comments)
     const leadingFieldDoc = formatLeading(leadingField)
 
-    if (qualifierN.type === "object_literal" && leadingFieldDoc.length === 0) {
+    if ((qualifierN.type === "object_literal" || hasObjectLiteral(qualifierN)) && leadingFieldDoc.length === 0) {
         // don't add extra newline
         // Foo {
         //     ...
         // }.toCell()
         //  ^ here
+        // Also applies to createMessage({...}).send()
         return group([qualifier, text("."), field, ...trailing])
     }
 

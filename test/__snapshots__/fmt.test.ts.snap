@@ -853,6 +853,13 @@ exports[`Formatter should format dot access 3`] = `
 "
 `;
 
+exports[`Formatter should format dot access 4`] = `
+"fun test() {
+    Foo({ bar: 1, tar: 2 }).send(3);
+}
+"
+`;
+
 exports[`Formatter should format enum members without commas 1`] = `
 "enum Foo {
     foo = 100 // comment
